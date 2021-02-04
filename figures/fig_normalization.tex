@@ -1,0 +1,71 @@
+%\documentclass[9pt]{elife}
+\documentclass[multi=figure,9pt]{standalone}
+\usepackage{graphicx}
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{stix}
+\RequirePackage[default]{opensans}
+\renewcommand{\ttdefault}{lmtt}
+
+\RequirePackage{microtype}
+
+% Trueno/Open Sans requires a bigger "single" linespread.
+\linespread{1.2}
+\if@onehalfspacing\linespread{1.5}\fi
+\if@doublespacing\linespread{2.0}\fi
+
+\RequirePackage{graphicx,xcolor}
+\definecolor{eLifeDarkBlue}{HTML}{273B81}
+\definecolor{eLifeLightBlue}{HTML}{0A9DD9}
+\definecolor{eLifeMediumGrey}{HTML}{6D6E70}
+\definecolor{eLifeLightGrey}{HTML}{929497}
+
+\RequirePackage{booktabs}
+\RequirePackage{authblk}
+
+\RequirePackage{changepage}
+
+\RequirePackage{silence}
+\WarningFilter{caption}{The option `hypcap=true' will be ignored}
+
+\RequirePackage[labelfont={bf},%
+                labelsep=period,%
+                justification=raggedright,%
+                singlelinecheck=false,%
+                tableposition=top,font={color=eLifeDarkBlue,scriptsize}]
+                {caption}
+
+\makeatletter
+\renewenvironment{figure}%
+{\def\@captype{figure}%
+\minipage{\textwidth}}%
+{\endminipage}
+\makeatother
+
+\let\efloatseparator=\empty
+
+\usepackage{subcaption}
+
+\begin{document}
+
+\begin{figure}
+    \centering
+    \captionsetup[subfigure]{justification=centering}
+    \begin{subfigure}[b]{0.325\textwidth}
+            \centering
+           \includegraphics[width=\textwidth]{datasets_comparison_none.pdf}
+            \caption{No normalization.}\label{fig:comparison_none}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.325\textwidth}
+           \centering
+           	\includegraphics[width=\textwidth]{datasets_comparison_moments.pdf}
+            \caption{Using the main body-axis (moments).}\label{fig:normalization_moments}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.325\textwidth}
+            \centering\includegraphics[width=\textwidth]{datasets_comparison_posture.pdf}
+            \caption{Using posture information.}\label{fig:normalization_posture}
+    \end{subfigure}
+\end{figure}
+
+\end{document}

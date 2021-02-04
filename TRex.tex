@@ -180,7 +180,7 @@ In the following sections we will explore some of the methods implemented in \TR
 
 \begin{figure}[h]
 \begin{fullwidth}
-\includegraphics[width=1.0\linewidth]{software-overview.pdf}
+\includegraphics[width=1.0\linewidth]{figures/software-overview.pdf}
 \captionsetup{margin=0pt,calcmargin={0pt,-4.5cm}}
 \caption{Videos are typically processed in four main stages, illustrated here each with a list of prominent features. Some of them are accessible from both \TRex{} and \TGrabs{}, while others are software specific (as shown at the very top). (a) The video is either recorded directly with our software (\TGrabs{}), or converted from a pre-recorded video file. Live-tracking enables users to perform closed-loop experiments, for which a virtual testing environment is provided. (b) Videos can be tracked and parameters adjusted with visual feedback. Various exploration and data presentation features are provided and customized data streams can be exported for use in external software. (c) After successful tracking, automatic visual identification can, optionally, be used to refine results. An artificial neural network is trained to recognize individuals, helping to automatically correct potential tracking mistakes. In the last stage, many graphical tools are available to users of \TRex{}, a selection of which is listed in (d).}
 \label{fig:software_overview}
@@ -199,7 +199,7 @@ The detected objects are saved to a custom non-proprietary compressed file forma
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=1\linewidth]{pipeline_overview.pdf}
+\includegraphics[width=1\linewidth]{figures/pipeline_overview.pdf}
 \caption{An overview of the interconnection between \TRex{}, \TGrabs{} and their data in- and output formats, with titles on the left corresponding to the stages in \figref{fig:software_overview}. Starting at the top of the figure, video is either streamed to \TGrabs{} from a file or directly from a compatible camera. At this stage, preprocessed data are saved to a \textit{.pv} file which can be read by \TRex{} later on. Thanks to its integration with parts of the \TRex{} code, \TGrabs{} can also perform online tracking for limited numbers of individuals, and save results to a \textit{.results} file (that can be opened by \TRex{}) along with individual tracking data saved to \protect\path{numpy} data-containers (\textit{.npz}) {\color{blue}or standard CSV files}, which can be used for analysis in third-party applications. If required, videos recorded directly using \TGrabs{} can also be streamed to a \textit{.mp4} video file which can be viewed in commonly available video players like \protect\path{VLC}.}
 \label{fig:pipeline_overview}
 \end{figure}
@@ -258,7 +258,7 @@ Visual input is an important modality for many species (e.g. fish \citealt{stran
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{screenshot_visual_field.jpg}
+    \includegraphics[width=\textwidth]{figures/screenshot_visual_field.jpg}
 
     \caption{Visual field estimate of the individual in the center (zoomed in, the individuals are approximately 2-3cm long, \videoref{vid:guppy_8_t36_d15_20191212_085800}). Right (blue) and left (orange) fields of view intersect in the binocular region (pink). Most individuals can be seen directly by the focal individual (1, green), which has a wide field of view of $260^\circ$ per eye. Individual 3 on the top-left is not detected by the focal individual directly and not part of its first-order visual field. However, second-order intersections (visualized by grey lines here) are also saved and accessible through a separate layer in the exported data.}
 	\label{fig:occlusion}
@@ -407,7 +407,7 @@ A big strength of machine learning approaches is their resistance to noise in th
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\textwidth]{fig_normalization.pdf}
+    \includegraphics[width=\textwidth]{figures/fig_normalization.pdf}
     \caption{Comparison of different normalization methods. Images all stem from the same video and belong to the same identity. The video has previously been automatically corrected using the visual identification. Each object visible here consists of $N$ images $M_i, i\in[0,N]$ that have been accumulated into a single image using $\min_{i\in [0,N]}M_i$, with $\min$ being the element-wise minimum across images. The columns represent same samples from the same frames, but normalized in three different ways: In (a), images have not been normalized at all. Images in (b) have been normalized by aligning the objects along their main axis (calculated using \textit{image-moments}), which only gives the axis within 0 to 180 degrees. In (c), all images have been aligned using posture information generated during the tracking process. As the images become more and more recognizable to \textit{us} from left to right, the same applies to a network trying to tell identities apart: Reducing noise in the data speeds up the learning process.}
 	\label{fig:datasets_comparison}
 \end{figure}
@@ -771,7 +771,7 @@ The trajectories exported by both \idtracker{} and \TRex{} were very similar thr
 %            }
 %            \label{fig:activate_termites}
 %    \end{subfigure}
-\includegraphics[width=\textwidth]{fig_activations.pdf}
+\includegraphics[width=\textwidth]{figures/fig_activations.pdf}
 
 \label{fig:network_activations}
 \end{figure}
@@ -816,7 +816,7 @@ video & \#ind. & length & max.consec.& TRex memory (GB) & idtracker.ai memory (G
 As expected, differences in memory consumption are especially prominent for long videos (4-7x lower maximum memory), and for videos with many individuals (2-3x lower). Since we already experienced significant problems tracking a long video (>3h) of only 8 individuals with \idtracker{}, we did not attempt to further study its behavior in long videos with many individuals. However, we would expect \idtracker{'s} memory usage to increase even more rapidly than is visible in \figref{fig:memory_per_video_length} since it retains a lot of image data (segmentation/pixels) in memory and we already had to "allow" it to relay to hard-disk in our efforts to make it work for Videos \vidref{vid:flies_N59}, \vidref{vid:guppy_8_t46_d1_20191207_102508} and \vidref{vid:guppy_8_t20_d1_20190512_115801} (which slows down analysis). The maximum memory consumption across all trials was on average 5.01$\pm$2.54 times higher in \idtracker{}, ranging from 1.81 to 10.85 times the maximum memory consumption of \TRex{} for the same video.
 
 \begin{figure}
-\includegraphics[width=0.9\linewidth]{memory_consumption.pdf}
+\includegraphics[width=0.9\linewidth]{figures/memory_consumption.pdf}
 \caption{The maximum memory by \TRex{} and \idtracker{} when tracking videos from a subset of all videos (the same videos as in \tableref{recognition_acc}). Results are plotted as a function of video length (min) multiplied by the number of individuals. We have to emphasize here that, for the videos in the upper length regions of multiple hours (\vidref{vid:guppy_8_t20_d1_20190512_115801}, \vidref{vid:guppy_8_t46_d1_20191207_102508}), we had to set \idtracker{} to store segmentation information on disk -- as opposed to in RAM. This uses less memory, but is also slower. For the video with flies we tried out both and also settled for on-disk, since otherwise the system ran out of memory. Even then, the curve still accelerates much faster for \idtracker{}, ultimately leading to problems with most computer systems. To minimize the impact that hardware compatibility has on research, we implemented switches limiting memory usage while always trying to maximize performance given the available data. \TRex{} can be used on modern laptops and normal consumer hardware at slightly lower speeds, but without any \textit{fatal} issues.}
 \label{fig:memory_per_video_length}
 \end{figure}
@@ -824,7 +824,7 @@ As expected, differences in memory consumption are especially prominent for long
 Overall memory consumption for \TRex{} also contains posture data, which contributes a lot to RAM usage. Especially with longer videos, disabling posture can lower the hardware needs for running our software. If posture is to be retained, the user can still (more slightly) reduce memory requirements by changing the outline re-sampling scale (1 by default), which adjusts the outline resolution between sub- and super-pixel accuracy. While analysis will be faster -- and memory consumption lower -- when posture is disabled (only limited by the matching algorithm, see \figref{fig:approx_accurate}), users of the visual identification might experience a decrease in training accuracy or speed (see \figref{fig:maximum_val_acc_per_samples}).
 
 \begin{figure}[h]
-\includegraphics[width=0.9\linewidth]{raw_posture_moments.pdf}
+\includegraphics[width=0.9\linewidth]{figures/raw_posture_moments.pdf}
 \caption{Convergence behavior of the network training for three different normalization methods. This shows the maximum achievable validation accuracy after 100 epochs for 100 individuals (\videoref{vid:video_example_100fish_1min}), when sub-sampling the number of examples per individual. Tests were performed using a manually corrected training dataset to generate the images in three different ways, using the same, independent script (see \figref{fig:datasets_comparison}): Using no normalization (blue), using normalization based on image moments (green, similar to \idtracker{}), and using posture information (red, as in \TRex{}). Higher numbers of samples per individual result in higher maximum accuracy overall, but -- unlike the other methods -- posture-normalized runs already reach an accuracy above the 90\% mark for $\geq$75 samples. This property can help significantly in situations with more crossings, when longer global segments are harder to find.}
 \label{fig:maximum_val_acc_per_samples}
 \end{figure}
@@ -1041,7 +1041,7 @@ Additionally, tracks of individuals can be exported as a series of cropped-out i
 
 \begin{figure}
 \begin{fullwidth}
-\includegraphics[width=1.0\linewidth]{trex_screenshot.pdf}
+\includegraphics[width=1.0\linewidth]{figures/trex_screenshot.pdf}
 \captionsetup{margin=0pt,calcmargin={0pt,-4.5cm}}
 \caption{An overview of \TRex{'} the main interface, which is part of the documentation at \href{https://trex.run/docs}{trex.run/docs}. Interface elements are sorted into categories in the four corners of the screen (labelled here in black). The omni-box on the bottom left corner allows users to change parameters on-the-fly, helped by a live auto-completion and documentation for all settings. Only some of the many available features are displayed here. Generally, interface elements can be toggled on or off using the bottom-left display options or moved out of the way with the cursor. Users can customize the tinting of objects (e.g. sourcing it from their speed) to generate interesting effect and can be recorded for use in presentations. Additionally, all exportable metrics (such as border-distance, size, x/y, etc.) can also be shown as an animated graph for a number of selected objects. Keyboard shortcuts are available for select features such as loading, saving, and terminating the program. Remote access is supported and offers the same graphical user interface, e.g. in case the software is executed without an application window (for batch processing purposes).}
 \label{fig:trex_screenshot}
@@ -1049,17 +1049,17 @@ Additionally, tracks of individuals can be exported as a series of cropped-out i
 \end{figure}
 
 \begin{figure}
-\begin{fullwidth}
-\includegraphics[width=1.0\linewidth]{012441.jpg}
-\captionsetup{margin=0pt,calcmargin={0pt,-4.5cm}}
+%\begin{fullwidth}
+\includegraphics[width=1.0\linewidth]{figures/012441.jpg}
+%\captionsetup{margin=0pt,calcmargin={0pt,-4.5cm}}
 \caption{Using the interactive heatmap generator within \TRex{}, the foraging trail formation of \textit{Constrictotermes cyphergaster} (termites) can be visualized during analysis, as well as other potentially interesting metrics (based on posture- as well basic positional data). This is generalizable to all output data fields available in \TRex{}, e.g. also making it possible to visualize "time" as a heatmap and showing where individuals were more likely to be located during the beginning or towards end of the video. \textit{Video: H. Hugo}}
 \label{fig:trex_screenshot_heatmaps}
-\end{fullwidth}
+%\end{fullwidth}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}
     \centering
-   \includegraphics[width=\textwidth]{Screenshot 2020-06-01 at 18.31.36.png}
+   \includegraphics[width=\textwidth]{figures/Screenshot 2020-06-01 at 18.31.36.png}
     \caption{The file opening dialog. On the left is a list of compatible files in the current folder. The center column shows meta-information provided by the video file, including its frame-rate and resolution -- or some of the settings used during conversion and the timestamp of conversion. The column on the right provides an easy interface for adjusting the most important parameters before starting up the software. Most parameters can be changed later on from within \TRex{} as well.}
 	\label{fig:file_opening}
 \end{figure}
@@ -1116,7 +1116,7 @@ At this point, the masked image is returned to the CPU, where connected componen
     %         \caption{Image modified by the structure element.}
     %         \label{fig:c}
     % \end{subfigure}
-    \includegraphics[width=\textwidth]{fig_structure_elements.pdf}
+    \includegraphics[width=\textwidth]{figures/fig_structure_elements.pdf}
     \caption{Example of morphological operations on images: "Erosion". Blue pixels denote on-pixels with color values greater than zero, white pixels are "off-pixels" with a value equal to zero. A mask is moved across the original image, with its center (dot) being the focal pixel. A focal pixel is \textit{retained} if all of the on-pixels within the structure element/mask are on top of on-pixels in the original image. Otherwise the focal pixel is set to 0. The type of operation performed is entirely determined by the structure element.}
 	\label{fig:erosion}
 \end{figure}
@@ -1159,7 +1159,7 @@ Based on the horizontal line segments and their order, posture analysis can be s
 
 \begin{figure}[b]
     \centering
-    \includegraphics[width=0.36\textwidth]{connected_component.pdf}
+    \includegraphics[width=0.36\textwidth]{figures/connected_component.pdf}
     \caption{An example array of pixels, or image, to be processed by the connected components algorithm. This figure should be read from top to bottom, just as the connected components algorithm would do. When this image is analysed, the red and blue objects will temporarily stay separate within different "blobs". When the green pixels are reached, both objects are combined into one identity.}
 	\label{fig:connected_component}
 \end{figure}
@@ -1284,7 +1284,7 @@ Further optimizations could be implemented, e.g. using impact-based heuristics (
 \end{appendixbox}
 
 \begin{figure}
-\includegraphics[width=1.0\textwidth]{tree.pdf}
+\includegraphics[width=1.0\textwidth]{figures/tree.pdf}
 \caption{A bipartite graph (a) and its equivalent tree-representation (b). It is \textit{bipartite} since nodes can be sorted into two disjoint and independent sets ($\{0,1,2\}$ and $\{3,4\}$), where no nodes have edges to other nodes within the same set. (a) is a straight-forward way of depicting an assignment problem, with the identities on the left side and objects being assigned to the identities on the right side. Edge weights are, in \TRex{} and this example, probabilities for a given identity to be the object in question. This graph is also an example for an unbalanced assignment problem, since there are fewer objects (orange) available than individuals (blue). The optimal solution in this case, using weight-maximization, is to assign $0\rightarrow3; 2\rightarrow4$ and leave $1$ unassigned. Invalid edges have been pruned from the tree in (b), enforcing the rule that objects can only appear once in each path. The optimal assignments have been highlighted in red.}
 \label{fig:bipartite_graph}
 \end{figure}
@@ -1325,7 +1325,7 @@ video & \textbf{{\# ind.}}  & ms / frame & 5\% & mean & 95\% & max & $>$ real-ti
 \end{table}
 
 \begin{figure}
-\includegraphics[width=1.0\linewidth]{segment_lengths.pdf}
+\includegraphics[width=1.0\linewidth]{figures/segment_lengths.pdf}
 \caption{The same set of videos as in \tableref{recognition_timings} pooled together, we evaluate the efficiency of our crossings solver. \textit{Consecutive frame segments} are sequences of frames without gaps, for example due to crossings or visibility issues. We find these \textit{consecutive frame segments} in data exported by \TRex{}, and compare the distribution of segment-lengths to \idtracker{'s} results (as a reference for an algorithm without a way to resolve crossings). In \idtracker{'s} case, we segmented the non-interpolated tracks by missing frames, assuming tracks to be correct in between. The Y-axis shows the percentage of $\sum_{k\in [1,V]}\mathrm{video\_length}_k * \mathrm{\#individuals}_k$ in $V$ videos that one column makes up for -- the overall coverage for \TRex{} was $98\%$, while \idtracker{} was slightly worse with $95.17\%$. Overall, the data distribution suggests that, probably due to it attempting to resolve crossings, \TRex{} seems to produce longer consecutive segments.}
 \label{fig:segment_lengths}
 \end{figure}
@@ -1354,7 +1354,7 @@ video & {\# ind.} & length & \multicolumn{2}{c|}{total} & \multicolumn{2}{c|}{ex
 \end{table}
 
 \begin{figure}
-\includegraphics[width=0.9\linewidth]{approx_accurate.pdf}
+\includegraphics[width=0.9\linewidth]{figures/approx_accurate.pdf}
 \caption{Mean values of processing-times and 5\%/95\% percentiles for video frames of all videos in the \textit{speed dataset} (Table \tableref{videos}), comparing two different matching algorithms. Parameters were kept identical, except for the matching mode, and posture was turned off to eliminate its effects on performance. Our tree-based algorithm is shown in green and the Hungarian method in red. Grey numbers above the graphs show the number of samples within each bin, per method. Differences between the algorithms increase very quickly, proportional to the number of individuals. Especially the Hungarian method quickly becomes very computationally intensive, while our tree-based algorithm shows a much shallower curve. Some frames could not be solved in reasonable time by the tree-based algorithm alone, at which point it falls back to the Hungarian algorithm. Data-points belonging to these frames ($N=79$) have been excluded from the results for both algorithms. One main advantage of the Hungarian method is that, with its bounded worst-case complexity (see \nameref{sec:matching_graph}), no such combinatorical explosions can happen. However, even given this advantage the Hungarian method still leads to significantly lower processing speed overall (see also appendix Table \tableref{timings_apprx}).}
 \label{fig:approx_accurate}
 \end{figure}
@@ -1602,7 +1602,7 @@ The angle of the center-line is calculated using $\atantwo$ for a vector between
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{fig_outline.pdf}
+    \includegraphics[width=\textwidth]{figures/fig_outline.pdf}
     \caption{The original image is displayed on the left. Each square represents one pixel. The processed image on the right is overlaid with lines of different colors, each representing one connected component detected by our outline estimation algorithm. Dots in the centers of pixels are per-pixel-identities returned by OpenCVs \texttt{findContours} function (for reference) coded in the same colors as ours.  Contours calculated by OpenCVs algorithm can not be used to estimate the one-pixel-wide "tail" of the 9-like shape seen here, since it becomes a 1D line without sub-pixel accuracy. Our algorithm also detects diagonal lines of pixels, which would otherwise be an aliased line when scaled up.}
 	\label{fig:outline_approx}
 	%Both images are in grayscale -- the pixel values are displayed using the "Viridis" color-scheme (an overview of various commonly used color-schemes can be found here: \href{https://bids.github.io/colormap/}{bids.github.io/colormap}).
@@ -2024,7 +2024,7 @@ video & \textbf{{\# ind.}} & reviewed (\%) & interpolated (\%) & \TRex{}\\
 
 \begin{figure}
 \begin{fullwidth}
-\includegraphics[width=1.0\linewidth]{mice_video_pics.pdf}
+\includegraphics[width=1.0\linewidth]{figures/mice_video_pics.pdf}
 \captionsetup{margin=0pt,calcmargin={0pt,-4.5cm}}
 \caption{{\color{blue}Screenshots from videos V1 and V2 listed in \tableref{mouse_crossings}. Left (V1), video of four black mice (17min, 1272x909px resolution) from \cite{idtrackerai}. Right (V2), four C57BL/6 mice (1:08min, 1280x960px resolution) by M. Groettrup, D. Mink.}}
 \label{fig:mice_video_pics}
@@ -2035,7 +2035,7 @@ video & \textbf{{\# ind.}} & reviewed (\%) & interpolated (\%) & \TRex{}\\
 
 \begin{figure}
 \begin{fullwidth}
-\includegraphics[width=1.0\linewidth]{mice_image.pdf}
+\includegraphics[width=1.0\linewidth]{figures/mice_image.pdf}
 \captionsetup{margin=0pt,calcmargin={0pt,-4.5cm}}
 \caption{{\color{blue}Median of all normalised images (N=7161, 7040, 7153, 7076) for each of the four individuals from V1 in \tableref{mouse_crossings}. Posture information was used to normalise each image sample, which was stable enough — also for \TRex{} — to tell where the head is, and even to make out the ears on each side (brighter spots).}}
 \label{fig:mice_image}
@@ -2044,7 +2044,7 @@ video & \textbf{{\# ind.}} & reviewed (\%) & interpolated (\%) & \TRex{}\\
 
 \begin{figure}
 \begin{fullwidth}
-\includegraphics[width=1.0\linewidth]{mice_camera_image.pdf}
+\includegraphics[width=1.0\linewidth]{figures/mice_camera_image.pdf}
 \captionsetup{margin=0pt,calcmargin={0pt,-4.5cm}}
 \caption{{\color{blue}Median of all normalised images (N=1593, 1586, 1620, 1538) for each of the four individuals from V2 in \tableref{mouse_crossings}. Resolution per animal is lower than in V1, but ears are still clearly visible.}}
 \label{fig:mice_camera_image}
