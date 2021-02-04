@@ -9,19 +9,7 @@
 % Additionally, the use of the \newcommand function should be limited.
 \usepackage{algorithm2e}
 \usepackage{mathtools}
-%\usepackage[utf8]{inputenc}
-\usepackage{lipsum} % Required to insert dummy text
-\usepackage[version=4]{mhchem}
-\usepackage{siunitx}
-\usepackage{multirow}
 \usepackage{color, colortbl}
-\usepackage{graphicx}% http://ctan.org/pkg/graphicx
-\usepackage[noend]{algpseudocode}
-\usepackage[normalem]{ulem}
-\usepackage{media9}
-\DeclareSIUnit\Molar{M}
-%\usepackage{subcaption}
-%\usepackage{stix}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% ARTICLE SETUP
@@ -36,8 +24,6 @@
 
 \corr{twalter@ab.mpg.de}{TW}
 \corr{icouzin@ab.mpg.de}{IDC}
-
-%\contrib[\authfn{2}]{These authors also contributed equally to this work}
 
 %\presentadd[\authfn{1}]{Department of Collective Behaviour, Max Planck Institute of Animal Behavior, D-78457 Konstanz, Germany}
 %\presentadd[\authfn{2}]{Centre for the Advanced Study of Collective Behaviour, University of Konstanz, Universitätsstraße 10, D-78457 Konstanz, Germany}
@@ -54,7 +40,6 @@
 \newcommand{\videoref}[1]{video~\textit{\textbf{\ref{#1}}}}
 %\DeclarePairedDelimiterX\set[1]\lbrace\rbrace{\def\given{\;\delimsize\vert\;}#1}
 
-\usepackage{amsmath,xparse,mleftright}
 
 \NewDocumentCommand{\up}{som}{%
   \IfBooleanTF{#1}
@@ -82,7 +67,6 @@
 \newcommand{\TGrabs}{\protect\path{TGrabs}}
 \definecolor{Gray}{gray}{0.9}
 
-
 \newcommand{\innermid}{\nonscript\;\vert\nonscript\;} % \delimsize
 \newcommand{\activatebar}{%
   \begingroup\lccode`\~=`\|
@@ -107,7 +91,6 @@
 \captionsetup*[figure]{name={\hspace{-2.5pt}},font={color=eLifeDarkBlue,small},skip=\smallskipamount,justification=justified}
 \captionsetup*[table]{name={\hspace{-2.5pt}},font={color=eLifeDarkBlue,small},margin=0pt,indention=0cm}
 \renewcommand{\thetable}{Table~\arabic{table}}
-%\captionsetup{labelformat=empty}
 
 \makeatletter\newcommand\newtag[2]{#1\def\@currentlabel{#1\hspace{-2pt}}\label{#2}}\makeatother%
 
@@ -629,7 +612,7 @@ Below we assess \TRex{'} performance regarding three properties that are most im
 %(i) The accuracy of the produced trajectories in terms of keeping identities (ii) the time it took to produce results and (iii) the memory-consumption of the process. 
 While accuracy is an important metric and specific to identification tasks, time and memory are typically of considerable practical importance for all tasks. For example, tracking-speed may be the difference between only being able to run a few trials or producing more reliable results with a much larger number of trials. In addition, tracking speed can make a major difference as the number of individuals increases. Furthermore, memory constraints can be extremely prohibitive making tracking over long video sequences and/or for a large number of individuals extremely time-consuming, or impossible, for the user.
 
-\begin{table}[h]
+\begin{table}
 \caption{\label{tab:videos}A list of the videos used in this paper as part of the evaluation of \TRex{}, along with the species of animals in the videos and their common names, as well as other video-specific properties. Videos are given an incremental ID, to make references more efficient in the following text, which are sorted by the number of individuals in the video. Individual quantities are given accurately, except for the videos with more than 100 where the exact number may be slightly more or less. These videos have been analysed using \TRex{}' dynamic analysis mode that supports unknown quantities of animals.}
 % Use "S" column identifier to align on decimal point 
 \begin{tabular}{l l l l l l l l l r}
@@ -693,7 +676,7 @@ In addition to speed, we also tested the accuracy of our tracking method, with r
 
 Since the goal of using visual identification is to generate consistent identity assignments, we evaluated the accuracy of our method in this regard. As a benchmark, we compare it to manually reviewed datasets as well as results from \idtracker{} for the same set of videos (where possible). In order to validate trajectories exported by either software, we manually reviewed multiple videos with the help from a tool within \TRex{} that allows to view each crossing and correct possible mistakes in-place. Assignments were deemed incorrect, and subsequently corrected by the reviewer, if the centroid of a given individual was not contained within the object it was assigned to (e.g. the individual was not part of the correct object). Double assignments per object are impossible due to the nature of the tracking method. Individuals were also forcibly assigned to the correct objects in case they were visible but not detected by the tracking algorithm. After manual corrections had been applied, "clean" trajectories were exported -- providing a per-frame baseline truth for the respective videos. A complete table of reviewed videos, and the percentage of reviewed frames per video, can be found in \tableref{reviewed_crossings}. For longer videos (>1h) we relied entirely on a comparison between results from \idtracker{} and \TRex{}. Their paper (\cite{idtrackerai}) suggests a very high accuracy of over 99.9\% correctly identified individual images for most videos, which should suffice for most relevant applications and provide a good baseline truth. As long as both tools produce sufficiently similar trajectories, we therefore know they have found the correct solution.
 
-\begin{table}[h]
+\begin{table}
 \caption{\label{tab:recognition_acc}Evaluating comparability of the automatic visual identification between \idtracker{} and \TRex{}. Columns show various video properties, as well as the associated uniqueness score (see \autoref{box:uniqueness_score}) and a similarity metric. Similarity (\textit{\% similar individuals}) is calculated based on comparing the positions for each identity exported by both tools, choosing the closest matches overall and counting the ones that are differently assigned per frame. An individual is classified as "wrong" in that frame, if the euclidean distance between the matched solutions from \idtracker{} and \TRex{} exceeds 1\% of the video width. The column "\% similar individuals" shows percentage values, where a value of $99\%$ would indicate that, on average, 1\% of the individuals are assigned differently. To demonstrate how uniqueness corresponds to the quality of results, the last column shows the average uniqueness achieved across trials.}
 % Use "S" column identifier to align on decimal point 
 \begin{tabular}{l l l l l l l r}
