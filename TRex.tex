@@ -89,7 +89,7 @@
 
 \renewcommand{\thefigure}{Figure~\arabic{figure}}
 \captionsetup*[figure]{name={\hspace{-2.5pt}},font={color=eLifeDarkBlue,small},skip=\smallskipamount,justification=justified}
-\captionsetup*[table]{name={\hspace{-2.5pt}},font={color=eLifeDarkBlue,small},margin=0pt,indention=0cm}
+\captionsetup*[table]{name={\hspace{-2.5pt}},font={color=eLifeDarkBlue,small},margin=0pt,indention=0cm,justification=justified}
 \renewcommand{\thetable}{Table~\arabic{table}}
 
 \makeatletter\newcommand\newtag[2]{#1\def\@currentlabel{#1\hspace{-2pt}}\label{#2}}\makeatother%
@@ -1033,7 +1033,7 @@ Additionally, tracks of individuals can be exported as a series of cropped-out i
 
 \begin{figure}
 %\begin{fullwidth}
-\includegraphics[width=1.0\linewidth]{figures/012441.jpg}
+\includegraphics[width=1.0\linewidth]{figures/Figure_A2.pdf}
 %\captionsetup{margin=0pt,calcmargin={0pt,-4.5cm}}
 \caption{Using the interactive heatmap generator within \TRex{}, the foraging trail formation of \textit{Constrictotermes cyphergaster} (termites) can be visualized during analysis, as well as other potentially interesting metrics (based on posture- as well basic positional data). This is generalizable to all output data fields available in \TRex{}, e.g. also making it possible to visualize "time" as a heatmap and showing where individuals were more likely to be located during the beginning or towards end of the video. \textit{Video: H. Hugo}}
 \label{fig:trex_screenshot_heatmaps}
@@ -1042,7 +1042,7 @@ Additionally, tracks of individuals can be exported as a series of cropped-out i
 
 \begin{figure}
     \centering
-   \includegraphics[width=\textwidth]{figures/Screenshot 2020-06-01 at 18.31.36.png}
+   \includegraphics[width=\textwidth]{figures/FigureA3.png}
     \caption{The file opening dialog. On the left is a list of compatible files in the current folder. The center column shows meta-information provided by the video file, including its frame-rate and resolution -- or some of the settings used during conversion and the timestamp of conversion. The column on the right provides an easy interface for adjusting the most important parameters before starting up the software. Most parameters can be changed later on from within \TRex{} as well.}
 	\label{fig:file_opening}
 \end{figure}
