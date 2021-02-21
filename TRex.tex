@@ -10,6 +10,8 @@
 \usepackage{algorithm2e}
 \usepackage{mathtools}
 \usepackage{color, colortbl}
+\usepackage{array} % for defining a new column type
+\usepackage{varwidth} %for the varwidth minipage environment
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% ARTICLE SETUP
@@ -148,20 +150,8 @@ Specifically regarding the visual identification of unmarked individuals in grou
 %%% FEATURES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Results}\label{sec:methods_evaluation}
 
-{\color{blue} Our software package consists of two task-specific tools, \TGrabs{} and \TRex{}, with different specializations. \TGrabs{} is primarily designed to connect to cameras and to be very fast. It employs the same program code as \TRex{} to achieve real-time online tracking, such as could be employed for closed-loop experiments (the user can launch \TGrabs{} from the opening dialog of \TRex{}). This speed and its highly specialized nature comes at the cost of not having access to the rich graphical user interface and slower processing steps, such as deep-learning based identification, that \TRex{} provides. \TRex{} focusses on the more time-consuming tasks, as well as visual data exploration, re-tracking existing results -- but sometimes it simply functions as an easier-to-use graphical interface for tracking and adjusting parameters. Together they provide a wide range of capabilities to the user and are often used in sequence as part of the same work-flow. Typically, such a sequence can be summarized in four stages (see also \figref{fig:pipeline_overview} for a flow diagram):}
-
-%The workflow for using our software is straightforward and can be summarized in four stages:
-
-\begin{enumerate}
-    \item \textbf{Segmentation} in \TGrabs{}. When recording a video or converting a previously recorded file (e.g. MP4, .AVI, etc.), it is segmented into background and foreground-objects (\verb!blobs!), the latter typically being the entities to be tracked. Results are saved to a custom, non-proprietary video format (\verb!PV!)  (\figref{fig:software_overview}a).
-    \item \textbf{Tracking} the video, either directly in \TGrabs{}, or {\color{blue} in \TRex{} after pre-processing,} with access to customizable visualizations and the ability to change tracking parameters on-the-fly. Here, we will describe two types of data available within \TRex{}, 2D posture- and visual-field estimation, as well as real-time applications of such data  (\figref{fig:software_overview}b).
-    \item {\color{blue}\textbf{Automatic identity correction} (\figref{fig:software_overview}c), a way of utilizing the power of a trained neural network to perform visual identification of individuals, is available in \TRex{} only.} This step may not be necessary in many cases, but it is the only way to guarantee consistent identities throughout the video. It is also the most time-consuming step, as well as the only one involving machine learning. All previously collected posture- and other tracking-related data are utilized in this step, placing it late in a typical workflow.
-    \item Data visualization is a critical component of any research project, especially for unfamiliar datasets, but manually crafting one for every new experiment can be very time-consuming. Thus, \TRex{} offers a universal, highly customizable, way to make all collected data available for interactive \textbf{exploration} (\figref{fig:software_overview}d) -- allowing users to change many display options and recording video clips for external playback. Tracking parameters can be adjusted on the fly (many with visual feedback) -- important e.g. when preparing a closed-loop feedback with a new species or setup.
-\end{enumerate}
-
-\begin{figure}[h]
+\begin{figure}[!hb]
 \begin{fullwidth}
 \includegraphics[width=1.0\linewidth]{figures/software-overview.pdf}
 \captionsetup{margin=0pt,calcmargin={0pt,-4.5cm}}
@@ -172,13 +162,26 @@ Specifically regarding the visual identification of unmarked individuals in grou
 \end{fullwidth}
 \end{figure}
 
+\section{Results}\label{sec:methods_evaluation}
+
+
+{\color{blue} Our software package consists of two task-specific tools, \TGrabs{} and \TRex{}, with different specializations. \TGrabs{} is primarily designed to connect to cameras and to be very fast. It employs the same program code as \TRex{} to achieve real-time online tracking, such as could be employed for closed-loop experiments (the user can launch \TGrabs{} from the opening dialog of \TRex{}). However, its focus on speed comes at the cost of not having access to the rich graphical user interface or more sophisticated (and thus slower) processing steps, such as deep-learning based identification, that \TRex{} provides. \TRex{} focusses on the more time-consuming tasks, as well as visual data exploration, re-tracking existing results -- but sometimes it simply functions as an easier-to-use graphical interface for tracking and adjusting parameters. Together they provide a wide range of capabilities to the user and are often used in sequence as part of the same work-flow. Typically, such a sequence can be summarized in four stages (see also \figref{fig:pipeline_overview} for a flow diagram):}
+
+%The workflow for using our software is straightforward and can be summarized in four stages:
+
+\begin{enumerate}
+    \item \textbf{Segmentation} in \TGrabs{}. When recording a video or converting a previously recorded file (e.g. MP4, .AVI, etc.), it is segmented into background and foreground-objects (\verb!blobs!), the latter typically being the entities to be tracked. Results are saved to a custom, non-proprietary video format (\verb!PV!)  (\figref{fig:software_overview}a).
+    \item \textbf{Tracking} the video, either directly in \TGrabs{}, or {\color{blue} in \TRex{} after pre-processing,} with access to customizable visualizations and the ability to change tracking parameters on-the-fly. Here, we will describe two types of data available within \TRex{}, 2D posture- and visual-field estimation, as well as real-time applications of such data  (\figref{fig:software_overview}b).
+    \item {\color{blue}\textbf{Automatic identity correction} (\figref{fig:software_overview}c), a way of utilizing the power of a trained neural network to perform visual identification of individuals, is available in \TRex{} only.} This step may not be necessary in many cases, but it is the only way to guarantee consistent identities throughout the video. It is also the {\color{blue}most processing-heavy (and thus usually the most time-consuming)} step, as well as the only one involving machine learning. All previously collected posture- and other tracking-related data are utilized in this step, placing it late in a typical workflow.
+    \item Data visualization is a critical component of any research project, especially for unfamiliar datasets, but manually crafting one for every new experiment can be very time-consuming. Thus, \TRex{} offers a universal, highly customizable, way to make all collected data available for interactive \textbf{exploration} (\figref{fig:software_overview}d) -- allowing users to change many display options and recording video clips for external playback. Tracking parameters can be adjusted on the fly (many with visual feedback) -- important e.g. when preparing a closed-loop feedback with a new species or setup.
+\end{enumerate}
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=1\linewidth]{figures/pipeline_overview.pdf}
 \caption{An overview of the interconnection between \TRex{}, \TGrabs{} and their data in- and output formats, with titles on the left corresponding to the stages in \figref{fig:software_overview}. Starting at the top of the figure, video is either streamed to \TGrabs{} from a file or directly from a compatible camera. At this stage, preprocessed data are saved to a \textit{.pv} file which can be read by \TRex{} later on. Thanks to its integration with parts of the \TRex{} code, \TGrabs{} can also perform online tracking for limited numbers of individuals, and save results to a \textit{.results} file (that can be opened by \TRex{}) along with individual tracking data saved to \protect\path{numpy} data-containers (\textit{.npz}) {\color{blue}or standard CSV files}, which can be used for analysis in third-party applications. If required, videos recorded directly using \TGrabs{} can also be streamed to a \textit{.mp4} video file which can be viewed in commonly available video players like \protect\path{VLC}.}
 \label{fig:pipeline_overview}
 \end{figure}
-
 
 %\begin{featurebox}
 %\caption{Compatibility with other segmentation software}
@@ -194,11 +197,12 @@ Specifically regarding the visual identification of unmarked individuals in grou
 %\section{Results} 
 
 Below we assess the performance {\color{blue}of our software} regarding three properties that are most important when using it (or in fact any tracking software) in practice: (i) The time it takes to perform tracking (ii) the time it takes to perform automatic identity correction and (iii) the peak memory consumption when correcting identities (since this is where memory consumption is maximal), as well as (iv) the accuracy of the produced trajectories after visual identification.
+
+
 %(i) The accuracy of the produced trajectories in terms of keeping identities (ii) the time it took to produce results and (iii) the memory-consumption of the process. 
 While accuracy is an important metric and specific to identification tasks, time and memory are typically of considerable practical importance for all tasks. For example, tracking-speed may be the difference between only being able to run a few trials or producing more reliable results with a much larger number of trials. In addition, tracking speed can make a major difference as the number of individuals increases. Furthermore, memory constraints can be extremely prohibitive making tracking over long video sequences and/or for a large number of individuals extremely time-consuming, or impossible, for the user.
 
 \begin{table}[t]
-\caption{\label{tab:videos}A list of the videos used in this paper as part of the evaluation of \TRex{}, along with the species of animals in the videos and their common names, as well as other video-specific properties. Videos are given an incremental ID, to make references more efficient in the following text, which are sorted by the number of individuals in the video. Individual quantities are given accurately, except for the videos with more than 100 where the exact number may be slightly more or less. These videos have been analysed using \TRex{}' dynamic analysis mode that supports unknown quantities of animals.}
 % Use "S" column identifier to align on decimal point 
 \begin{tabular}{l l l l l l l l l r}
 \toprule
@@ -226,7 +230,9 @@ ID & species & common & {\# ind.} & fps (Hz) & duration & size ($\mathrm{px}^2$)
 \end{tabular}
 
 \medskip 
-\tabledata{Videos \vidref{vid:video_example_100fish_1min} and \vidref{vid:flies_N59}, as well as \vidref{vid:group_1}-\vidref{vid:group_3}, are available as part of the original \texttt{idtracker} paper (\cite{idtracker}). Many of the videos are part of yet unpublished data: Guppy videos have been recorded by A. Albi, videos with sunbleak (\textit{Leucaspius delineatus}) have been recorded by D. Bath. The termite video has been kindly provided by H. Hugo and the locust video by F. Oberhauser. Due to the size of some of these videos (>150GB per video), they have to be made available upon specific request. Raw versions of these videos (some trimmed), as well as full preprocessed versions, are available as part of \href{http://videos.trex.run/}{videos.trex.run}.}
+
+\caption{\label{tab:videos}A list of the videos used in this paper as part of the evaluation of \TRex{}, along with the species of animals in the videos and their common names, as well as other video-specific properties. Videos are given an incremental ID, to make references more efficient in the following text, which are sorted by the number of individuals in the video. Individual quantities are given accurately, except for the videos with more than 100 where the exact number may be slightly more or less. These videos have been analysed using \TRex{}' dynamic analysis mode that supports unknown quantities of animals.}
+\tabledata{Videos \vidref{vid:video_example_100fish_1min} and \vidref{vid:flies_N59}, as well as \vidref{vid:group_1}-\vidref{vid:group_3}, are available as part of the original \texttt{idtracker} paper (\cite{idtracker}). Many of the videos are part of yet unpublished data: Guppy videos have been recorded by A. Albi, videos with sunbleak (\textit{Leucaspius delineatus}) have been recorded by D. Bath. The termite video has been kindly provided by H. Hugo and the locust video by F. Oberhauser. Due to the size of some of these videos (>150GB per video), they have to be made available upon specific request. Raw versions of these videos (some trimmed), as well as full preprocessed versions, are available as part of the dataset published alongside this paper \cite{walter2020dataset}.}
 
 \end{table}
 
@@ -240,7 +246,7 @@ In all of our tests we used a relatively modest computer system, which could be 
 \item Debian bullseye (\href{https://www.debian.org/devel/debian-installer/}{debian.org})
 \end{enumerate}
 
-As can be seen in the following sections (memory consumption, processing speeds, etc.) using a high-end system is not necessary to run \TRex{} and, anecdotally, we did not observe noticeable improvements when using a solid state drive versus a normal hard drive. A video card (presently an NVIDIA card due to the requirements of TensorFlow) is recommended for tasks involving visual identification as such computations will take much longer without it -- however, it is not required. We decided to employ this system due to having a relatively cheap, compatible graphics card, as well as to ensure that we have an easy way to produce direct comparisons with \idtracker{} -- which according to their website requires large amounts of RAM (32-128GB, \href{https://idtrackerai.readthedocs.io/en/latest/how_to_install.html}{idtrackerai online documentation}, accessed {\color{blue}02/17/2021}) and a fast solid-state drive.
+As can be seen in the following sections (memory consumption, processing speeds, etc.) using a high-end system is not necessary to run \TRex{} and, anecdotally, we did not observe noticeable improvements when using a solid state drive versus a normal hard drive. A video card (presently an NVIDIA card due to the requirements of TensorFlow) is recommended for tasks involving visual identification as such computations will take much longer without it -- however, it is not required. We decided to employ this system due to having a relatively cheap, compatible graphics card, as well as to ensure that we have an easy way to produce direct comparisons with \idtracker{} -- which according to their website requires large amounts of RAM (32-128GB, \href{https://idtrackerai.readthedocs.io/en/latest/how_to_install.html}{idtrackerai online documentation}) and a fast solid-state drive.
 
 \tableref{videos} shows the entire set of videos used in this paper, which have been obtained from multiple sources (credited under the table) and span a wide range of different organisms, demonstrating \TRex{}' ability to track anything as long as it moves occasionally. Videos involving a large number (>100) of individuals are all the same species of fish since these were the only organisms we had available in such quantities. However, this is not to say that only fish could be tracked efficiently in these quantities. We used the full dataset with up to 1024 individuals in one video (\videoref{vid:reversals3m_1024_dotbot_20181025_105202.stitched}) to evaluate raw tracking speed without visual identification and identity corrections (next sub-section). However, since such numbers of individuals exceed the capacity of the neural network used for automatic identity corrections (compare also \cite{idtrackerai} who used a similar network), we only used a subset of these videos (videos \vidref{vid:video_example_100fish_1min} through \vidref{vid:guppy_8_t20_d1_20190512_115801}) to look specifically into the quality of our visual identification in terms of keeping identities and its memory consumption.
 
@@ -257,33 +263,37 @@ Generally, tracking software becomes slower as the number of individuals to be t
  \label{sec:evaluation_accuracy}
 In addition to speed, we also tested the accuracy of our tracking method, with regards to the consistency of identity assignments, comparing its results to the manually reviewed data (the methodology of which is described in the next section). In order to avoid counting follow-up errors as "new" errors, we divided each trajectory in the uncorrected data into "uninterrupted" segments of frames, instead of simply comparing whole trajectories. A segment is interrupted when an individual is lost (for any of the reasons given in \nameref{sec:segments}) and starts again when it is reassigned to another object later on. We term these (re-)assignments \textit{decisions} here. Each segment of every individual can be uniquely assigned to a similar/identical segment in the baseline data and its identity. Following one trajectory in the uncorrected data, we can detect these wrong decisions by checking whether the baseline identity associated with one segment of that trajectory changes in the next. We found that roughly 80\% of such decisions made by the tree-based matching were correct, even with relatively high numbers of individuals (100). For trajectories where no manually reviewed data were available, we used automatically corrected trajectories as a base for our comparison -- we evaluate the accuracy of these automatically corrected trajectories in the following section. Even though we did not investigate accuracy in situations with more than 100 individuals, we suspect similar results since the property with the strongest influence on tracking accuracy -- individual density -- is limited physically and most of the investigated species school tightly in either case.
 
-\subsection{Visual Identification: Accuracy} \label{sec:maintaining_identities}
-
-Since the goal of using visual identification is to generate consistent identity assignments, we evaluated the accuracy of our method in this regard. As a benchmark, we compare it to manually reviewed datasets as well as results from \idtracker{} for the same set of videos (where possible). In order to validate trajectories exported by either software, we manually reviewed multiple videos with the help from a tool within \TRex{} that allows to view each crossing and correct possible mistakes in-place. Assignments were deemed incorrect, and subsequently corrected by the reviewer, if the centroid of a given individual was not contained within the object it was assigned to (e.g. the individual was not part of the correct object). Double assignments per object are impossible due to the nature of the tracking method. Individuals were also forcibly assigned to the correct objects in case they were visible but not detected by the tracking algorithm. After manual corrections had been applied, "clean" trajectories were exported -- providing a per-frame baseline truth for the respective videos. A complete table of reviewed videos, and the percentage of reviewed frames per video, can be found in \tableref{reviewed_crossings}. For longer videos (>1h) we relied entirely on a comparison between results from \idtracker{} and \TRex{}. Their paper (\cite{idtrackerai}) suggests a very high accuracy of over 99.9\% correctly identified individual images for most videos, which should suffice for most relevant applications and provide a good baseline truth. As long as both tools produce sufficiently similar trajectories, we therefore know they have found the correct solution.
-
 \begin{table}
-\caption{\label{tab:recognition_acc}Evaluating comparability of the automatic visual identification between \idtracker{} and \TRex{}. Columns show various video properties, as well as the associated uniqueness score (see \autoref{box:uniqueness_score}) and a similarity metric. Similarity (\textit{\% similar individuals}) is calculated based on comparing the positions for each identity exported by both tools, choosing the closest matches overall and counting the ones that are differently assigned per frame. An individual is classified as "wrong" in that frame, if the euclidean distance between the matched solutions from \idtracker{} and \TRex{} exceeds 1\% of the video width. The column "\% similar individuals" shows percentage values, where a value of $99\%$ would indicate that, on average, 1\% of the individuals are assigned differently. To demonstrate how uniqueness corresponds to the quality of results, the last column shows the average uniqueness achieved across trials.}
 % Use "S" column identifier to align on decimal point 
 \begin{tabular}{l l l l l l l r}
 \toprule
 video & {\# ind.} & N \TRex{} & \% similar individuals & $\diameter$ final uniqueness \\
 \midrule
-\vidref{vid:video_example_100fish_1min} & $100$ & $5$ & $99.9522\pm 0.2536$ & $0.9758\pm 0.0018$ \\
-\vidref{vid:flies_N59} & $59$ & $5$ & $99.7249\pm 0.5586$ & $0.9356\pm 0.0358$ \\
-\vidref{vid:group_1} & $10$ & $5$ & $99.9907\pm 0.3668$ & $0.9812\pm 0.0013$ \\
-\vidref{vid:group_2} & $10$ & $5$ & $99.9565\pm 0.8381$ & $0.9698\pm 0.0024$ \\
-\vidref{vid:group_3} & $10$ & $5$ & $99.9218\pm 1.116$ & $0.9461\pm 0.0039$ \\
-\vidref{vid:guppy_8_t46_d1_20191207_102508} & $8$ & $5$ & $98.8185\pm 5.8095$ & $0.9192\pm 0.0077$ \\
-\vidref{vid:guppy_8_t36_d15_20191212_085800} & $8$ & $5$ & $99.241\pm 4.2876$ & $0.9576\pm 0.0023$ \\
-\vidref{vid:guppy_8_t20_d1_20190512_115801} & $8$ & $5$ & $99.8063\pm 1.9556$ & $0.9481\pm 0.0025$ \\
+\vidref{vid:video_example_100fish_1min} & $100$ & $5$ & $99.8346\pm 0.5265$ & $0.9758\pm 0.0018$ \\
+\vidref{vid:flies_N59} & $59$ & $5$ & $98.6885\pm 2.1145$ & $0.9356\pm 0.0358$ \\
+\vidref{vid:group_1} & $10$ & $5$ & $99.9902\pm 0.3737$ & $0.9812\pm 0.0013$ \\
+\vidref{vid:group_3} & $10$ & $5$ & $99.9212\pm 1.1208$ & $0.9461\pm 0.0039$ \\
+\vidref{vid:group_2} & $10$ & $5$ & $99.9546\pm 0.8573$ & $0.9698\pm 0.0024$ \\
+\vidref{vid:guppy_8_t46_d1_20191207_102508} & $8$ & $5$ & $98.8359\pm 5.8136$ & $0.9192\pm 0.0077$ \\
+\vidref{vid:guppy_8_t36_d15_20191212_085800} & $8$ & $5$ & $99.2246\pm 4.4486$ & $0.9576\pm 0.0023$ \\
+\vidref{vid:guppy_8_t20_d1_20190512_115801} & $8$ & $5$ & $99.7704\pm 2.1994$ & $0.9481\pm 0.0025$ \\
 \bottomrule
 \end{tabular}
+
+\medskip
+
+\caption{\label{tab:recognition_acc}Evaluating comparability of the automatic visual identification between \idtracker{} and \TRex{}. Columns show various video properties, as well as the associated uniqueness score (see \autoref{box:uniqueness_score}) and a similarity metric. Similarity (\textit{\% similar individuals}) is calculated based on comparing the positions for each identity exported by both tools, choosing the closest matches overall and counting the ones that are differently assigned per frame. An individual is classified as "wrong" in that frame, if the euclidean distance between the matched solutions from \idtracker{} and \TRex{} exceeds 1\% of the video width. The column "\% similar individuals" shows percentage values, where a value of $99\%$ would indicate that, on average, 1\% of the individuals are assigned differently. To demonstrate how uniqueness corresponds to the quality of results, the last column shows the average uniqueness achieved across trials.}
+\tabledata{This file contains all X and Y positions for each trial and each software combined into one very large table. This data is also available in different formats in \cite{walter2020dataset}.}
+\tabledata{Assignments between identities from multiple solutions, as calculated by a bipartite-graph matching algorithm. For each permutation of trials from \TRex{} and \idtracker{} for the same video, the algorithm sought to match the trajectories of the same physical individuals in both trials with each other by finding the ones with the smallest mean euclidean distance per frame between them. Available at \url{http://dx.doi.org/10.17617/3.4y}, as \protect\path{T2_source_data.zip}.}
 \end{table}
+
+\subsection{Visual Identification: Accuracy} \label{sec:maintaining_identities}
+
+Since the goal of using visual identification is to generate consistent identity assignments, we evaluated the accuracy of our method in this regard. As a benchmark, we compare it to manually reviewed datasets as well as results from \idtracker{} for the same set of videos (where possible). In order to validate trajectories exported by either software, we manually reviewed multiple videos with the help from a tool within \TRex{} that allows to view each crossing and correct possible mistakes in-place. Assignments were deemed incorrect, and subsequently corrected by the reviewer, if the centroid of a given individual was not contained within the object it was assigned to (e.g. the individual was not part of the correct object). Double assignments per object are impossible due to the nature of the tracking method. Individuals were also forcibly assigned to the correct objects in case they were visible but not detected by the tracking algorithm. After manual corrections had been applied, "clean" trajectories were exported -- providing a per-frame baseline truth for the respective videos. A complete table of reviewed videos, and the percentage of reviewed frames per video, can be found in \tableref{reviewed_crossings}. For longer videos (>1h) we relied entirely on a comparison between results from \idtracker{} and \TRex{}. Their paper (\cite{idtrackerai}) suggests a very high accuracy of over 99.9\% correctly identified individual images for most videos, which should suffice for most relevant applications and provide a good baseline truth. As long as both tools produce sufficiently similar trajectories, we therefore know they have found the correct solution.
 
 A direct comparison between \TRex{} and \idtracker{} was not possible for videos \vidref{vid:15locusts1h} and \vidref{vid:N05HHS2019-10S-V1}, where \idtracker{} frequently exceeded hardware memory-limits and caused the application to be terminated, or did not produce usable results within multiple days of run-time. However, we were able to successfully analyse these videos with \TRex{} and evaluate its performance by comparing to manually reviewed trajectories (see below in \nameref{sec:maintaining_identities}). Due to the stochastic nature of machine learning, and thus the inherent possibility of obtaining different results in each run, as well as other potential factors influencing processing time and memory consumption, both \TRex{} and \idtracker{} have been executed repeatedly (5x \TRex{}, 3x \idtracker{}).
 
 \begin{table}
-\caption{\label{tab:reviewed_crossings} Results of the human validation for a subset of videos. Validation was performed by going through all problematic situations (e.g. individuals lost) and correcting mistakes manually, creating a fully corrected dataset for the given videos. This dataset may still have missing frames for some individuals, if they could not be detected in certain frames (as indicated by "of that interpolated"). This was usually a very low percentage of all frames, except for \videoref{vid:15locusts1h}, where individuals tended to rest on top of each other -- and were thus not tracked -- for extended periods of time. This baseline dataset was compared to all other results obtained using the automatic visual identification by \TRex{} ($N=5$) and \idtracker{} ($N=3$) to estimate correctness. We were not able to track videos \vidref{vid:15locusts1h} and \vidref{vid:N05HHS2019-10S-V1} with \idtracker{}, which is why correctness values are not available.}
 \begin{tabular}{l l | l l | l l}
 \toprule
 \multicolumn{2}{c|}{video metrics} & \multicolumn{2}{c|}{review stats} & \multicolumn{2}{c}{\% correct} \\
@@ -306,13 +316,17 @@ $ 99.63 \pm 0.0 $ \\
 $ 99.34 \pm 0.002 $ \\
 \bottomrule
 \end{tabular}
+
+\medskip
+
+\caption{\label{tab:reviewed_crossings} Results of the human validation for a subset of videos. Validation was performed by going through all problematic situations (e.g. individuals lost) and correcting mistakes manually, creating a fully corrected dataset for the given videos. This dataset may still have missing frames for some individuals, if they could not be detected in certain frames (as indicated by "of that interpolated"). This was usually a very low percentage of all frames, except for \videoref{vid:15locusts1h}, where individuals tended to rest on top of each other -- and were thus not tracked -- for extended periods of time. This baseline dataset was compared to all other results obtained using the automatic visual identification by \TRex{} ($N=5$) and \idtracker{} ($N=3$) to estimate correctness. We were not able to track videos \vidref{vid:15locusts1h} and \vidref{vid:N05HHS2019-10S-V1} with \idtracker{}, which is why correctness values are not available.}
+\tabledata{A table of positions for each individual of each manually approved and corrected trial.}
 \end{table}
 
-The trajectories exported by both \idtracker{} and \TRex{} were very similar throughout (see \tableref{recognition_acc}). While occasional disagreements happened, similarity scores were higher than 99\% in all cases (i.e. less than 1\% of individuals have been differently assigned in each frame on average). Most difficulties that \textit{did} occur were, after manual review, attributable to situations where multiple individuals cross over excessively within a short time-span. In each case that has been manually reviewed, identities switched back to the correct individuals -- even after temporary disagreement. We found that both solutions occasionally experienced these same problems, which often occur when individuals repeatedly come in and out of view in quick succession (e.g. overlapping with other individuals). Disagreements were expected for videos with many such situations due to the way both algorithms deal differently with them: \idtracker{} assigns identities only based on the network output. In many cases, individuals continue to partly overlap even while already being tracked, which results in visual artifacts and can lead to unstable predictions by the network and causing \idtracker{'s} approach to fail. Comparing results from both \idtracker{} and \TRex{} to manually reviewed data (see \tableref{reviewed_crossings}) shows that both solutions consistently provide high accuracy results of above 99.5\% for most videos, but that \TRex{} is slightly improved in all cases while also having a better overall frame coverage per individual (99.65\% versus \idtracker{'s} 97.93\%, where 100\% would mean that all individuals are tracked in every frame; not shown). This suggests that the splitting algorithm (see appendix, \nameref{box:splitting-algorithm}) is working to \TRex{}' advantage here.
+The trajectories exported by both \idtracker{} and \TRex{} were very similar throughout (see \tableref{recognition_acc}). While occasional disagreements happened, similarity scores were higher than {\color{blue}98\% in all and higher than 99\% in most cases} (i.e. less than 1\% of individuals have been differently assigned in each frame on average). Most difficulties that \textit{did} occur were, after manual review, attributable to situations where multiple individuals cross over excessively within a short time-span. In each case that has been manually reviewed, identities switched back to the correct individuals -- even after temporary disagreement. We found that both solutions occasionally experienced these same problems, which often occur when individuals repeatedly come in and out of view in quick succession (e.g. overlapping with other individuals). Disagreements were expected for videos with many such situations due to the way both algorithms deal differently with them: \idtracker{} assigns identities only based on the network output. In many cases, individuals continue to partly overlap even while already being tracked, which results in visual artifacts and can lead to unstable predictions by the network and causing \idtracker{'s} approach to fail. Comparing results from both \idtracker{} and \TRex{} to manually reviewed data (see \tableref{reviewed_crossings}) shows that both solutions consistently provide high accuracy results of above 99.5\% for most videos, but that \TRex{} is slightly improved in all cases while also having a better overall frame coverage per individual (99.65\% versus \idtracker{'s} 97.93\%, where 100\% would mean that all individuals are tracked in every frame; not shown). This suggests that the splitting algorithm (see appendix, \nameref{box:splitting-algorithm}) is working to \TRex{}' advantage here.
 
 \begin{figure}[h]
 \centering
-    \caption{Activation differences for images of randomly selected individuals from four videos, next to a median image of the respective individual -- which hides thin extremities, such as legs in (a) and (c). The captions in (a-d) detail the species per group and number of samples per individual. Colors represent the relative activation differences, with hotter colors suggesting bigger magnitudes, which are computed by performing a forward-pass through the network up to the last convolutional layer (using \href{https://github.com/philipperemy/keract}{keract}). The outputs for each identity are averaged and stretched back to the original image size by cropping and scaling according to the network architecture. Differences shown here are calculated per cluster of pixels corresponding to each filter, comparing average activations for images from the individual's class to activations for images from other classes.}
     
     %\captionsetup[subfigure]{justification=centering}
     %\begin{subfigure}[b]{0.9\textwidth}
@@ -341,7 +355,7 @@ The trajectories exported by both \idtracker{} and \TRex{} were very similar thr
 %    \end{subfigure}
 \includegraphics[width=\textwidth]{figures/fig_activations.pdf}
 
-\label{fig:network_activations}
+\caption{\label{fig:network_activations}Activation differences for images of randomly selected individuals from four videos, next to a median image of the respective individual -- which hides thin extremities, such as legs in (a) and (c). The captions in (a-d) detail the species per group and number of samples per individual. Colors represent the relative activation differences, with hotter colors suggesting bigger magnitudes, which are computed by performing a forward-pass through the network up to the last convolutional layer (using \href{https://github.com/philipperemy/keract}{keract}). The outputs for each identity are averaged and stretched back to the original image size by cropping and scaling according to the network architecture. Differences shown here are calculated per cluster of pixels corresponding to each filter, comparing average activations for images from the individual's class to activations for images from other classes.}
 \end{figure}
 
 Additionally, while \TRex{} could successfully track individuals in all videos without tags, we were interested to see the effect of tags (in this case QR tags attached to locusts, see \figref{fig:network_activations}a)  %\figref{fig:activate_locusts})
@@ -350,12 +364,9 @@ on network training. In \figref{fig:network_activations} we visualise difference
 and (iii) details that often occur in the head-region (like distance between the eyes) which can also play a role here. "Hot" regions in the bottom right corner of the activation images (e.g. in \figref{fig:network_activations}d) %\figref{fig:activate_termites}%
 suggest that also pixels are reacted to which are explicitly \textit{not} part of the individual itself but of other individuals -- likely this corresponds to the network making use of size/shape differences between them.
 
-As would be expected, distinct patterns can be recognized in the resulting activations after training as soon as physical tags are attached to individuals (as in \figref{fig:network_activations}a). %\figref{fig:activate_locusts}). 
-While other parts of the image are still heavily activated (probably to benefit from size/shape differences between individuals), tags are always at least a large part of where activations concentrate. The network seemingly makes use of the additional information provided by the experimenter, where that has occurred. This suggests that, while definitely not being necessary, adding tags probably does not worsen, and likely may even improve, training accuracy, for difficult cases allowing networks to exploit any source of inter-individual variation.
 
 
-\begin{table}[!h]
-\caption{\label{tab:memory_table}Both \TRex{} and \idtracker{} analysed the same set of videos, while continuously logging their memory consumption using an external tool. Rows have been sorted by $\mathrm{video\_length} * \mathrm{\#individuals}$, which seems to be a good predictor for the memory consumption of both solutions. \idtracker{} has mixed mean values, which, at low individual densities are similar to \TRex{}' results. Mean values can be misleading here, since more time spent in low-memory states skews results. The maximum, however, is more reliable since it marks the memory that is necessary to run the system. Here, \idtracker{} clocks in at significantly higher values (almost always more than double) than \TRex{}.}
+\begin{table}
 % Use "S" column identifier to align on decimal point 
 \begin{tabular}{l l l l l l l l | r}
 \toprule
@@ -374,40 +385,47 @@ video & \#ind. & length & max.consec.& TRex memory (GB) & idtracker.ai memory (G
 
 \bottomrule
 \end{tabular}
-%\medskip 
-%\tabledata{}
+\medskip 
+
+\caption{\label{tab:memory_table}Both \TRex{} and \idtracker{} analysed the same set of videos, while continuously logging their memory consumption using an external tool. Rows have been sorted by $\mathrm{video\_length} * \mathrm{\#individuals}$, which seems to be a good predictor for the memory consumption of both solutions. \idtracker{} has mixed mean values, which, at low individual densities are similar to \TRex{}' results. Mean values can be misleading here, since more time spent in low-memory states skews results. The maximum, however, is more reliable since it marks the memory that is necessary to run the system. Here, \idtracker{} clocks in at significantly higher values (almost always more than double) than \TRex{}.}
+\tabledata{Data from log files for all trials as a single table, where each row is one sample. The total memory of each sample is calculated as $\mathrm{SWAP} + \mathrm{PRIVATE} + \mathrm{SHARED}$. Each row indicates at which exact time, by which software, and as part of which trial it was taken. }
 \end{table}
 
 
-
-\begin{figure}[!h]
+\begin{figure}
+\centering
 \includegraphics[width=0.9\linewidth]{figures/memory_consumption.pdf}
 \caption{The maximum memory by \TRex{} and \idtracker{} when tracking videos from a subset of all videos (the same videos as in \tableref{recognition_acc}). Results are plotted as a function of video length (min) multiplied by the number of individuals. We have to emphasize here that, for the videos in the upper length regions of multiple hours (\vidref{vid:guppy_8_t20_d1_20190512_115801}, \vidref{vid:guppy_8_t46_d1_20191207_102508}), we had to set \idtracker{} to store segmentation information on disk -- as opposed to in RAM. This uses less memory, but is also slower. For the video with flies we tried out both and also settled for on-disk, since otherwise the system ran out of memory. Even then, the curve still accelerates much faster for \idtracker{}, ultimately leading to problems with most computer systems. To minimize the impact that hardware compatibility has on research, we implemented switches limiting memory usage while always trying to maximize performance given the available data. \TRex{} can be used on modern laptops and normal consumer hardware at slightly lower speeds, but without any \textit{fatal} issues.}
 \label{fig:memory_per_video_length}
+\figdata{Each data-point from \figref{fig:memory_per_video_length} as plotted, indexed by video and software used.}
 \end{figure}
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\linewidth]{figures/raw_posture_moments.pdf}
+\caption{Convergence behavior of the network training for three different normalization methods. This shows the maximum achievable validation accuracy after 100 epochs for 100 individuals (\videoref{vid:video_example_100fish_1min}), when sub-sampling the number of examples per individual. Tests were performed using a manually corrected training dataset to generate the images in three different ways, using the same, independent script (see \figref{fig:datasets_comparison}): Using no normalization (blue), using normalization based on image moments (green, similar to \idtracker{}), and using posture information (red, as in \TRex{}). Higher numbers of samples per individual result in higher maximum accuracy overall, but -- unlike the other methods -- posture-normalized runs already reach an accuracy above the 90\% mark for $\geq$75 samples. This property can help significantly in situations with more crossings, when longer global segments are harder to find.}
+\label{fig:maximum_val_acc_per_samples}
+\figdata{Raw data-points as plotted in \figref{fig:maximum_val_acc_per_samples}.}
+\end{figure}
+
+As would be expected, distinct patterns can be recognized in the resulting activations after training as soon as physical tags are attached to individuals (as in \figref{fig:network_activations}a). %\figref{fig:activate_locusts}). 
+While other parts of the image are still heavily activated (probably to benefit from size/shape differences between individuals), tags are always at least a large part of where activations concentrate. The network seemingly makes use of the additional information provided by the experimenter, where that has occurred. This suggests that, while definitely not being necessary, adding tags probably does not worsen, and likely may even improve, training accuracy, for difficult cases allowing networks to exploit any source of inter-individual variation.
+
 
 \subsection{Visual Identification: Memory Consumption}
 
 In order to generate comparable results between both tested software solutions, the same external script has been used to measure shared, private and swap memory of \idtracker{} and \TRex{}, respectively. There are a number of ways with which to determine the memory usage of a process. For automation purposes we decided to use a tool called \href{https://github.com/jeetsukumaran/Syrupy}{syrupy}, which can start and save information about a specified command automatically. We modified it slightly, so we could obtain more accurate measurements for Swap, Shared and Private separately, using \href{http://www.pixelbeat.org/scripts/ps_mem.py}{ps\_mem}.
 
 
-As expected, differences in memory consumption are especially prominent for long videos (4-7x lower maximum memory), and for videos with many individuals (2-3x lower). Since we already experienced significant problems tracking a long video (>3h) of only 8 individuals with \idtracker{}, we did not attempt to further study its behavior in long videos with many individuals. However, we would expect \idtracker{'s} memory usage to increase even more rapidly than is visible in \figref{fig:memory_per_video_length} since it retains a lot of image data (segmentation/pixels) in memory and we already had to "allow" it to relay to hard-disk in our efforts to make it work for Videos \vidref{vid:flies_N59}, \vidref{vid:guppy_8_t46_d1_20191207_102508} and \vidref{vid:guppy_8_t20_d1_20190512_115801} (which slows down analysis). The maximum memory consumption across all trials was on average 5.01$\pm$2.54 times higher in \idtracker{}, ranging from 1.81 to 10.85 times the maximum memory consumption of \TRex{} for the same video.
 
+
+As expected, differences in memory consumption are especially prominent for long videos (4-7x lower maximum memory), and for videos with many individuals (2-3x lower). Since we already experienced significant problems tracking a long video (>3h) of only 8 individuals with \idtracker{}, we did not attempt to further study its behavior in long videos with many individuals. However, we would expect \idtracker{'s} memory usage to increase even more rapidly than is visible in \figref{fig:memory_per_video_length} since it retains a lot of image data (segmentation/pixels) in memory and we already had to "allow" it to relay to hard-disk in our efforts to make it work for Videos \vidref{vid:flies_N59}, \vidref{vid:guppy_8_t46_d1_20191207_102508} and \vidref{vid:guppy_8_t20_d1_20190512_115801} (which slows down analysis). The maximum memory consumption across all trials was on average 5.01$\pm$2.54 times higher in \idtracker{}, ranging from 1.81 to 10.85 times the maximum memory consumption of \TRex{} for the same video.
 
 Overall memory consumption for \TRex{} also contains posture data, which contributes a lot to RAM usage. Especially with longer videos, disabling posture can lower the hardware needs for running our software. If posture is to be retained, the user can still (more slightly) reduce memory requirements by changing the outline re-sampling scale (1 by default), which adjusts the outline resolution between sub- and super-pixel accuracy. While analysis will be faster -- and memory consumption lower -- when posture is disabled (only limited by the matching algorithm, see \figref{fig:approx_accurate}), users of the visual identification might experience a decrease in training accuracy or speed (see \figref{fig:maximum_val_acc_per_samples}).
 
-\begin{figure}[!h]
-\includegraphics[width=0.9\linewidth]{figures/raw_posture_moments.pdf}
-\caption{Convergence behavior of the network training for three different normalization methods. This shows the maximum achievable validation accuracy after 100 epochs for 100 individuals (\videoref{vid:video_example_100fish_1min}), when sub-sampling the number of examples per individual. Tests were performed using a manually corrected training dataset to generate the images in three different ways, using the same, independent script (see \figref{fig:datasets_comparison}): Using no normalization (blue), using normalization based on image moments (green, similar to \idtracker{}), and using posture information (red, as in \TRex{}). Higher numbers of samples per individual result in higher maximum accuracy overall, but -- unlike the other methods -- posture-normalized runs already reach an accuracy above the 90\% mark for $\geq$75 samples. This property can help significantly in situations with more crossings, when longer global segments are harder to find.}
-\label{fig:maximum_val_acc_per_samples}
-\end{figure}
 
-\subsection{Visual Identification: Processing Time}
-
-Automatically correcting the trajectories (to produce consistent identity assignments) means that additional time is spent on the training and application of a network, specifically for the video in question. Visual identification builds on some of the other methods described in this paper (tracking and posture estimation), naturally making it by far the most complex and time-consuming process in \TRex{} -- we thus evaluated how much time is spent on the entire sequence of all required processes. For each run of \TRex{} and \idtracker{}, we saved precise timing information from start to finish. Since \idtracker{} reads videos \textit{directly} and preprocesses them again each run, we used the same starting conditions with our software for a direct comparison:
-
-\begin{table}[h]
-\caption{\label{tab:recognition_timings}Evaluating time-cost for automatic identity correction -- comparing to results from \idtracker{}. Timings consist of preprocessing time in \TGrabs{} plus network training in \TRex{}, which are shown separately as well as combined (\textit{ours (min)}, $N=5$). The time it takes to analyse videos strongly depends on the number of individuals and how many usable samples per individual the initial segment provides. The length of the video factors in as well, as does the stochasticity of the gradient descent (training). \idtracker{} timings ($N=3$) contain the whole tracking and training process from start to finish, using its \texttt{terminal\_mode} (v3). Parameters have been manually adjusted per video and setting, to the best of our abilities, spending at most one hour per configuration. For videos \vidref{vid:guppy_8_t20_d1_20190512_115801} and \vidref{vid:guppy_8_t46_d1_20191207_102508} we had to set \idtracker{} to storing segmentation information on disk (as compared to in RAM) to prevent the program from being terminated for running out of memory.}
+\begin{table}[!h]
 % Use "S" column identifier to align on decimal point 
 \begin{tabular}{l l l l l l || l | r}
 \toprule
@@ -436,13 +454,27 @@ $ 291.42 \pm 16.83 $ \\
 $ 1493.83 \pm 27.75 $ \\
 \bottomrule
 \end{tabular}
-%\medskip 
+\medskip 
 %\tabledata{}
+\caption{\label{tab:recognition_timings}Evaluating time-cost for automatic identity correction -- comparing to results from \idtracker{}. Timings consist of preprocessing time in \TGrabs{} plus network training in \TRex{}, which are shown separately as well as combined (\textit{ours (min)}, $N=5$). The time it takes to analyse videos strongly depends on the number of individuals and how many usable samples per individual the initial segment provides. The length of the video factors in as well, as does the stochasticity of the gradient descent (training). \idtracker{} timings ($N=3$) contain the whole tracking and training process from start to finish, using its \texttt{terminal\_mode} (v3). Parameters have been manually adjusted per video and setting, to the best of our abilities, spending at most one hour per configuration. For videos \vidref{vid:guppy_8_t20_d1_20190512_115801} and \vidref{vid:guppy_8_t46_d1_20191207_102508} we had to set \idtracker{} to storing segmentation information on disk (as compared to in RAM) to prevent the program from being terminated for running out of memory.}
+\tabledata{Preprocessed log files (see also \protect\path{notebooks.zip} in \cite{walter2020dataset}) in a table format. The total processing time (s) of each trial is indexed by video and software used -- \TGrabs{} for conversion and \TRex{} and \idtracker{} for visual identification. This data is also used in \tableref{timings}.}
 \end{table}
+
+\subsection{Visual Identification: Processing Time}
+
+Automatically correcting the trajectories (to produce consistent identity assignments) means that additional time is spent on the training and application of a network, specifically for the video in question. Visual identification builds on some of the other methods described in this paper (tracking and posture estimation), naturally making it by far the most complex and time-consuming process in \TRex{} -- we thus evaluated how much time is spent on the entire sequence of all required processes. For each run of \TRex{} and \idtracker{}, we saved precise timing information from start to finish. Since \idtracker{} reads videos \textit{directly} and preprocesses them again each run, we used the same starting conditions with our software for a direct comparison:
+
 
 A trial starts by converting/preprocessing a video in \TGrabs{} and then immediately opening it in \TRex{}, where automatic identity corrections were applied. \TRex{} terminated automatically after satisfying a correctness criterion (high uniqueness value) according to equation \eqref{eq:gooduniqueness}. It then exported trajectories, as well as validation data (similar to \idtracker{}), concluding the trial. The sum of time spent within \TGrabs{} and \TRex{} gives the total amount of time for that trial. For the purpose of this test it would not have been fair to compare only \TRex{} processing times to \idtracker{}, but it is important to emphasize that conversion could be skipped entirely by using \TGrabs{} to record videos directly from a camera instead of opening an existing video file.
 
-In \tableref{recognition_timings} we can see that video length and processing times did not correlate directly. Indeed, conversion times eventually overtook processing times with increasing video-length if the number of individuals remained the same. Furthermore, the time it took to track and correct a video was shorter when the initial segment (column "sample" in the table) was longer (and as such likely of higher quality/capturing more visual intra-individual variation). Conversion times correlated strongly with the total video-length (in frames) and not the number of individuals, suggesting conversion was only constrained by video-decoding/reading speeds and not by (pre-)processing.
+%Conversion times correlated strongly with the total video-length (in frames) and not the number of individuals, suggesting conversion was only constrained by video-decoding/reading speeds and not by (pre-)processing. 
+{\color{blue}In \tableref{recognition_timings} we can see that video length and processing times (in \TRex{}) did not correlate directly. Indeed, \videoref{vid:flies_N59} (one minute long) took significantly longer to process than \videoref{vid:guppy_8_t36_d15_20191212_085800} (60 minutes long). The reason for this, initially counterintuitive, result is that the process of learning identities requires sufficiently long video sequences: longer samples have a higher likelihood of capturing more of the total possible visual intra-individual variance, which helps the algorithm to get a more complete understanding of the individual's appearance. Using a long segment as the starting-point for training may allow the algorithm to stop early by reaching higher uniqueness-regimes more quickly (see \nameref{sec:training_quality} and \nameref{sec:recognition_stopping}). Thus longer videos naturally provide more material for the algorithm to choose from and, simply due to their length, have a higher probability of containing at least one such higher-quality segment. Using \TRex{} with longer video-sequences instead of shorter ones can therefore typically be expected to lead to better results -- both in terms of quality and processing time.}
+
+
+%a sample that, due to its length, likely contains more of the total variance
+%conversion times in \TGrabs{} often overtook processing times in \TRex{} with increasing video-length if the number of individuals remained the same -- suggesting that 
+
+%In \tableref{recognition_timings} we can see that video length and processing times did not correlate directly. {\color{blue}Conversion times correlated with the total video-length (in frames) and not the number of individuals, suggesting conversion was only constrained by video-decoding/reading speeds and not by (pre-)processing. Indeed, conversion times in \TGrabs{} often overtook processing times in \TRex{} with increasing video-length if the number of individuals remained the same. Furthermore, the time it took to track and correct a video was shorter when the initial segment (column "sample" in the table) was longer (and as such likely capturing more visual intra-individual variation). Longer videos often provide more material for the algorithm to choose from and (simply due to their length) have a higher probability of producing at least one such higher-quality segment. Starting with a sample containing most of the variance, likely produces higher uniqueness-scores (\nameref{sec:training_quality}) early on and prompt the algorithm to terminate early. Perhaps counter-intuitively, using longer video-sequences instead of shorter ones should, in terms of time and accuracy, can thus be expected to produce better results and more quickly.}
 
 Compared to \idtracker{}, \TRex{} (conversion + visual identification) shows both considerably lower computation times ($2.57\times$ to $46.74\times$ faster for the same video), as well as lower variance in the timings ($79\%$ lower for the same video on average).
 
@@ -454,10 +486,9 @@ Compared to \idtracker{}, \TRex{} (conversion + visual identification) shows bot
 
 {\color{blue}We have designed \TRex{} to be a versatile and fast program that can enable researches to track} animals (and other mobile objects) in a wide range of situations. It maintains identities of up to 100 un-tagged individuals and produces corrected tracks, along with posture estimation{\color{blue}, visual-field reconstruction, and other features that enable the quantitative study of animal behavior.} Even videos that can not be tracked by other solutions, such as videos with over 500 animals, can now be tracked within the same day of recording.
 
-While all options are available from the command-line and a screen is not required, \TRex{} offers a rich, yet straight-foward to use, interface to local as well as remote users. Accompanied by the integrated documentation for all parameters, each stating purpose, type and value ranges, as well as a comprehensive online documentation, {\color{blue}new users are provided with all the information required for a quick adoption of our software.} Especially to the benefit of new users, we evaluated the parameter space on diverse datasets (fish, termites, locusts) and determined which parameters work best in most use-cases to set their default values.
+While all options are available from the command-line and a screen is not required, \TRex{} offers a rich, yet straight-foward to use, interface to local as well as remote users. Accompanied by the integrated documentation for all parameters, each stating purpose, type and value ranges, as well as a comprehensive online documentation, {\color{blue}new users are provided with all the information required for a quick adoption of our software.} Especially to the benefit of new users, we evaluated the parameter space {\color{blue}using videos of diverse species} (fish, termites, locusts) and determined which parameters work best in most use-cases to set their default values.
 
-
-\begin{figure}
+\begin{figure}[h]
 %\begin{fullwidth}
 \includegraphics[width=1.0\linewidth]{figures/trex_screenshot.pdf}
 %\captionsetup{margin=0pt,calcmargin={0pt,-4.5cm}}
@@ -506,6 +537,25 @@ To obtain the most up-to-date version of \TRex{}, please download it at \href{ht
 \section{Materials \& Methods}
 
 {\color{blue}In the following sections we describe the methods implemented in \TRex{} and \TGrabs{}, as well as their most important features in a typical order of operations (see \figref{fig:pipeline_overview} for a flow diagram), starting out with a raw video. We will then describe how trajectories are obtained and end with the most technically involved features.}
+
+% \newcolumntype{M}{>{\begin{varwidth}{4cm}}l<{\end{varwidth}}}
+% \begin{table}[h]
+% % Use "S" column identifier to align on decimal point 
+% \begin{tabular}{p{2cm}|p{4cm}|p{3.5cm}|p{3cm}}%|p{2cm}}
+% \toprule
+% Resource & Designation & Source or reference & Identifiers \\ %& Additional information \\
+% \midrule
+% Syrupy & Measuring memory consumption during the runtime of a process & \protect\href{https://github.com/jeetsukumaran/Syrupy}{github/jeetsukumaran} \\
+% ps\_mem & Adding additional information to Syrupy output & \href{http://www.pixelbeat.org/scripts/ps_mem.py}{pixelbeat.org} \\
+% Jupyter Lab & Analysis & \href{https://github.com/jupyterlab/jupyterlab}{github/jupyterlab} & \protect\path{RRID:SCR_018315}\\
+% Python & Analysis & \href{https://python.org}{python.org} & \protect\path{RRID:SCR_008394} \\
+% Debian & Operating system & &\protect\path{RRID:SCR_006638}\\
+% \bottomrule
+% \end{tabular}
+% \medskip 
+% %\tabledata{}
+% \caption{Do I need this}
+% \end{table}
 
 \subsection{Segmentation}
 
@@ -1047,7 +1097,7 @@ Additionally, tracks of individuals can be exported as a series of cropped-out i
 
 \begin{figure}
 %\begin{fullwidth}
-\includegraphics[width=1.0\linewidth]{figures/Figure_A2.pdf}
+\includegraphics[width=1.0\linewidth]{figures/Figure_A1.pdf}
 %\captionsetup{margin=0pt,calcmargin={0pt,-4.5cm}}
 \caption{Using the interactive heatmap generator within \TRex{}, the foraging trail formation of \textit{Constrictotermes cyphergaster} (termites) can be visualized during analysis, as well as other potentially interesting metrics (based on posture- as well basic positional data). This is generalizable to all output data fields available in \TRex{}, e.g. also making it possible to visualize "time" as a heatmap and showing where individuals were more likely to be located during the beginning or towards end of the video. \textit{Video: H. Hugo}}
 \label{fig:trex_screenshot_heatmaps}
@@ -1056,7 +1106,7 @@ Additionally, tracks of individuals can be exported as a series of cropped-out i
 
 \begin{figure}
     \centering
-   \includegraphics[width=\textwidth]{figures/FigureA3.png}
+   \includegraphics[width=\textwidth]{figures/FigureA2.png}
     \caption{The file opening dialog. On the left is a list of compatible files in the current folder. The center column shows meta-information provided by the video file, including its frame-rate and resolution -- or some of the settings used during conversion and the timestamp of conversion. The column on the right provides an easy interface for adjusting the most important parameters before starting up the software. Most parameters can be changed later on from within \TRex{} as well.}
 	\label{fig:file_opening}
 \end{figure}
@@ -1287,7 +1337,6 @@ Further optimizations could be implemented, e.g. using impact-based heuristics (
 \end{figure}
 
 \begin{table}
-\caption{Showing quantiles for frame timings for videos of the \textit{speed dataset} (without posture enabled). Videos \vidref{vid:guppy_8_t36_d15_20191212_085800}, \vidref{vid:guppy_8_t20_d1_20190512_115801} and \vidref{vid:guppy_8_t46_d1_20191207_102508} each contain a short sequence of taking out the fish, causing a lot of big objects and noise in the frame. This leads to relatively high spikes in these segments of the video, resulting in high peak processing timings here. Generally, processing time is influenced by a lot of factors involving not only \TRex{}, but also the operating system as well as other programs. While we did try to control for these, there is no way to make sure. However, having sporadic spikes in the timings per frame does not significantly influence overall processing time, since it can be compensated for by later frames. We can see that videos of all quantities $\leq$ 256 individuals can be processed faster than they could be recorded. Videos that can not be processed faster than real-time are underlaid in gray.}\label{tab:absolute_speeds_no_posture}
 % Use "S" column identifier to align on decimal point 
 \begin{tabular}{l l l | l l l l l | l}
 \toprule
@@ -1317,19 +1366,22 @@ video & \textbf{{\# ind.}}  & ms / frame & 5\% & mean & 95\% & max & $>$ real-ti
 
 \bottomrule
 \end{tabular}
-%\medskip 
+\medskip 
 %\tabledata{}
+\caption{Showing quantiles for frame timings for videos of the \textit{speed dataset} (without posture enabled). Videos \vidref{vid:guppy_8_t36_d15_20191212_085800}, \vidref{vid:guppy_8_t20_d1_20190512_115801} and \vidref{vid:guppy_8_t46_d1_20191207_102508} each contain a short sequence of taking out the fish, causing a lot of big objects and noise in the frame. This leads to relatively high spikes in these segments of the video, resulting in high peak processing timings here. Generally, processing time is influenced by a lot of factors involving not only \TRex{}, but also the operating system as well as other programs. While we did try to control for these, there is no way to make sure. However, having sporadic spikes in the timings per frame does not significantly influence overall processing time, since it can be compensated for by later frames. We can see that videos of all quantities $\leq$ 256 individuals can be processed faster than they could be recorded. Videos that can not be processed faster than real-time are underlaid in gray.}\label{tab:absolute_speeds_no_posture}
+\tabledata{Raw samples for this table and \tableref{matching_stats}.}
 \end{table}
 
 \begin{figure}
 \includegraphics[width=1.0\linewidth]{figures/segment_lengths.pdf}
 \caption{The same set of videos as in \tableref{recognition_timings} pooled together, we evaluate the efficiency of our crossings solver. \textit{Consecutive frame segments} are sequences of frames without gaps, for example due to crossings or visibility issues. We find these \textit{consecutive frame segments} in data exported by \TRex{}, and compare the distribution of segment-lengths to \idtracker{'s} results (as a reference for an algorithm without a way to resolve crossings). In \idtracker{'s} case, we segmented the non-interpolated tracks by missing frames, assuming tracks to be correct in between. The Y-axis shows the percentage of $\sum_{k\in [1,V]}\mathrm{video\_length}_k * \mathrm{\#individuals}_k$ in $V$ videos that one column makes up for -- the overall coverage for \TRex{} was $98\%$, while \idtracker{} was slightly worse with $95.17\%$. Overall, the data distribution suggests that, probably due to it attempting to resolve crossings, \TRex{} seems to produce longer consecutive segments.}
 \label{fig:segment_lengths}
+\figdata{A list of all consecutive frame segments used in \figref{fig:segment_lengths}. In the table, they are indexed by their length, the software they were produced by, the video they originate from, as well as they bin they belong to.}
+\figdata{The raw data-points as plotted in \figref{fig:segment_lengths}.}
 \end{figure}
 
 \begin{table}
-\caption{\label{tab:decisions}A quality assessment of assignment decisions made by the general purpose tracking system without the aid of visual recognition -- comparing results of two accurate tracking algorithms with the assignments made by an approximate method. Here, \textit{decisions} are reassignments of an individual after it has been lost, or the tracker was too "unsure" about an assignment. Decisions can be either correct or wrong, which is determined by comparing to reference data generated using automatic visual recognition: Every segment of frames between decisions is associated with a corresponding "baseline-truth" identity from the reference data. If this association changes after a decision, then that decision is counted as wrong. Analysing a decision may fail if no good match can be found in the reference data (which is not interpolated). Failed decisions are ignored. Comparative values for the Hungarian algorithm (\cite{kuhn1955hungarian}) are always exactly the same as for our tree-based algorithm, and are therefore not listed separately.
-Left-aligned \textit{total}, \textit{excluded} and \textit{wrong} counts in each column are results achieved by an accurate algorithm, numbers to their right are the corresponding results using an approximate method.}
+
 % Use "S" column identifier to align on decimal point 
 \begin{tabular}{l l l || l r | l r | l r }
 \toprule
@@ -1348,6 +1400,9 @@ video & {\# ind.} & length & \multicolumn{2}{c|}{total} & \multicolumn{2}{c|}{ex
 \multicolumn{3}{r||}{sum} & $ 16952 $ & $ 16754 $ & $ - 2343 $ & $- 2554 $ &$ 2811 \ ( 19.24 \%)$ & $ 4374 \ ( 27.38 \%)$ \\
 \bottomrule
 \end{tabular}
+\medskip
+\caption{\label{tab:decisions}A quality assessment of assignment decisions made by the general purpose tracking system without the aid of visual recognition -- comparing results of two accurate tracking algorithms with the assignments made by an approximate method. Here, \textit{decisions} are reassignments of an individual after it has been lost, or the tracker was too "unsure" about an assignment. Decisions can be either correct or wrong, which is determined by comparing to reference data generated using automatic visual recognition: Every segment of frames between decisions is associated with a corresponding "baseline-truth" identity from the reference data. If this association changes after a decision, then that decision is counted as wrong. Analysing a decision may fail if no good match can be found in the reference data (which is not interpolated). Failed decisions are ignored. Comparative values for the Hungarian algorithm (\cite{kuhn1955hungarian}) are always exactly the same as for our tree-based algorithm, and are therefore not listed separately.
+Left-aligned \textit{total}, \textit{excluded} and \textit{wrong} counts in each column are results achieved by an accurate algorithm, numbers to their right are the corresponding results using an approximate method.}
 \end{table}
 
 \begin{figure}
@@ -1357,7 +1412,6 @@ video & {\# ind.} & length & \multicolumn{2}{c|}{total} & \multicolumn{2}{c|}{ex
 \end{figure}
 
 \begin{table}[h]
-\caption{\label{tab:timings_apprx}Comparing computation speeds of the tree-based tracking algorithm with the widely established Hungarian algorithm \cite{kuhn1955hungarian}, as well as an approximate version optimized for large quantities of individuals. Posture estimation has been disabled, focusing purely on the assignment problem in our timing measurements. The tree-based algorithm is programmed to fall back on the Hungarian method whenever the current problem "explodes" computationally -- these frames were excluded. Listed are relevant video metrics on the left and mean computation speeds on the right side for three different algorithms: (1) The tree-based and (2) the approximate algorithm presented in this paper, and (3) the Hungarian algorithm. Speeds listed here are percentages of real-time (the videos' fps), demonstrating usability in closed-loop applications and overall performance. Results show that increasing the number of individuals both increases the time-cost, as well as producing much larger relative standard deviation values. (1) is almost always fast than (3), while becoming slower than (2) with increasing individual numbers. In our implementation, all algorithms produce faster than real-time speeds with 256 or fewer individuals (see also appendix Table \tableref{absolute_speeds_no_posture}), with (1) and (2) even getting close for 512 individuals.}
 % Use "S" column identifier to align on decimal point 
 \begin{tabular}{l l l l | l l l l}
 \toprule
@@ -1386,12 +1440,12 @@ video & \textbf{{\# ind.}}  & fps (Hz) & size ($\mathrm{px}^2$) & tree & approxi
 \vidref{vid:singleguppy_f2_d9} & 1 & 140 & $ 1312 \times 1312 $ & $ 15323.05 \pm 637.17 $ & $ 15250.39 \pm 639.2 $ & $ 15680.93 \pm 640.99 $ \\
 \bottomrule
 \end{tabular}
-%\medskip 
+\medskip 
 %\tabledata{}
+\caption{\label{tab:timings_apprx}Comparing computation speeds of the tree-based tracking algorithm with the widely established Hungarian algorithm \cite{kuhn1955hungarian}, as well as an approximate version optimized for large quantities of individuals. Posture estimation has been disabled, focusing purely on the assignment problem in our timing measurements. The tree-based algorithm is programmed to fall back on the Hungarian method whenever the current problem "explodes" computationally -- these frames were excluded. Listed are relevant video metrics on the left and mean computation speeds on the right side for three different algorithms: (1) The tree-based and (2) the approximate algorithm presented in this paper, and (3) the Hungarian algorithm. Speeds listed here are percentages of real-time (the videos' fps), demonstrating usability in closed-loop applications and overall performance. Results show that increasing the number of individuals both increases the time-cost, as well as producing much larger relative standard deviation values. (1) is almost always fast than (3), while becoming slower than (2) with increasing individual numbers. In our implementation, all algorithms produce faster than real-time speeds with 256 or fewer individuals (see also appendix Table \tableref{absolute_speeds_no_posture}), with (1) and (2) even getting close for 512 individuals.}
 \end{table}
 
 \begin{table}[h]
-\caption{\label{tab:timings}Comparing the time-cost for tracking and converting videos in two steps with doing both of those tasks at the same time. The columns \textit{prepare} and \textit{tracking} show timings for the tasks when executed separately, while \textit{live} shows the time when both of them are performed at the same time using the live-tracking feature of \TGrabs{}. The column \textit{win} shows the time "won" by combining tracking and preprocessing as the percentage $(\mathrm{prepare}+\mathrm{tracking}-\mathrm{live})/(\mathrm{prepare}+\mathrm{tracking})$. The process is more complicated than simply adding up timings of the tasks. Memory and the interplay of work-loads have a huge effect here. Posture is enabled in all variants.}
 % Use "S" column identifier to align on decimal point 
 \begin{tabular}{l l l l | l l l | r}
 \toprule
@@ -1423,12 +1477,13 @@ video & {\# ind.} & length & fps (Hz) & prepare &  tracking  & live & win (\%)  
 \bottomrule
 \end{tabular}
 
-%\medskip 
+\medskip 
 %\tabledata{}
+\caption{\label{tab:timings}Comparing the time-cost for tracking and converting videos in two steps with doing both of those tasks at the same time. The columns \textit{prepare} and \textit{tracking} show timings for the tasks when executed separately, while \textit{live} shows the time when both of them are performed at the same time using the live-tracking feature of \TGrabs{}. The column \textit{win} shows the time "won" by combining tracking and preprocessing as the percentage $(\mathrm{prepare}+\mathrm{tracking}-\mathrm{live})/(\mathrm{prepare}+\mathrm{tracking})$. The process is more complicated than simply adding up timings of the tasks. Memory and the interplay of work-loads have a huge effect here. Posture is enabled in all variants.}
+%\tabledata{Same as \tableref{recognition_timings} source-data.}
 \end{table}
 
 \begin{table}
-\caption{\label{tab:matching_stats} Statistics for running the tree-based matching algorithm with the videos of the speed dataset. We achieve low leaf and node visits across the board -- this is especially interesting in videos with high numbers of individuals. High values for '\# nodes visited' are only impactful if they make up a large portion of the assignments. These are the result of too many choices for assignments -- the weak point of the tree-based algorithm -- and lead to combinatorical "explosions" (the method will take a really long time to finish). If such an event is detected, \TRex{} automatically switches to a more computationally bounded algorithm like the Hungarian method.}
 % Use "S" column identifier to align on decimal point 
 \begin{tabular}{l l | l l l}
 \toprule
@@ -1458,8 +1513,10 @@ video & \textbf{{\# ind.}}  & \# nodes visited (5,50,95,100\%) & \# leafs visite
 
 \bottomrule
 \end{tabular}
-%\medskip 
+\medskip 
 %\tabledata{}
+\caption{\label{tab:matching_stats} Statistics for running the tree-based matching algorithm with the videos of the speed dataset. We achieve low leaf and node visits across the board -- this is especially interesting in videos with high numbers of individuals. High values for '\# nodes visited' are only impactful if they make up a large portion of the assignments. These are the result of too many choices for assignments -- the weak point of the tree-based algorithm -- and lead to combinatorical "explosions" (the method will take a really long time to finish). If such an event is detected, \TRex{} automatically switches to a more computationally bounded algorithm like the Hungarian method.}
+%\tabledata{Same as \tableref{absolute_speeds_no_posture}.}
 \end{table}
 
 \begin{appendixbox}
@@ -1823,7 +1880,6 @@ In our tests, the same individuals may have been given different IDs (or "names"
 \end{appendixbox}
 
 \begin{table}[t]
-\caption{\label{tab:settings_idtracker} Settings used for \idtracker{} trials, as saved inside the \texttt{.json} files used for tracking. The minimum intensity was always set to 0 and background subtraction was always enabled. An ROI is an area of interest in the form of an array of 2D vectors, typically a convex polygon containing the area of the tank (e.g. for fish or locusts). Since this format is quite lengthy, we only indicate here whether we limited the area of interest or not.}
 \begin{tabular}{l | l l l l l l}
 \toprule
 %\multicolumn{2}{c|}{video characteristics} & \multicolumn{4}{c}{matching stats} \\
@@ -1841,6 +1897,9 @@ video & length (\# frames)  & nblobs & area & max. intensity & roi \\
 \vidref{vid:guppy_8_t36_d15_20191212_085800} & 108000 & 8 & [250, 2500] & 10 & No \\
 \bottomrule
 \end{tabular}
+
+\medskip
+\caption{\label{tab:settings_idtracker} Settings used for \idtracker{} trials, as saved inside the \texttt{.json} files used for tracking. The minimum intensity was always set to 0 and background subtraction was always enabled. An ROI is an area of interest in the form of an array of 2D vectors, typically a convex polygon containing the area of the tank (e.g. for fish or locusts). Since this format is quite lengthy, we only indicate here whether we limited the area of interest or not.}
 \end{table}
 
 %\begin{figure}[h]
@@ -2008,7 +2067,6 @@ Furthermore, we found that our method for posture estimation works well despite 
 \end{appendixbox}
 
 \begin{table}[h]
-\caption{\label{tab:mouse_crossings}{\color{blue}Analogous to our analysis in \tableref{reviewed_crossings}, we compared automatically generated trajectories for two videos with manually verified ones. Unlike the table in the main text, the sample size per video is only one here, which is why the standard deviation is zero in both cases. Results show very high accuracy for both videos, but relatively high numbers of interpolated frames  compared to \tableref{reviewed_crossings}, where only the results for \videoref{vid:15locusts1h} showed more than 8\% interpolation and all others remained below 1\%.}}
 \begin{tabular}{l | l l l l}
 \toprule
 video & \textbf{{\# ind.}} & reviewed (\%) & interpolated (\%) & \TRex{}\\
@@ -2017,6 +2075,8 @@ video & \textbf{{\# ind.}} & reviewed (\%) & interpolated (\%) & \TRex{}\\
 (V2) D. Mink, M. Groettrup & 4 & 100.0 & $ 1.74 $ & $ 99.82 \pm 0.0 $ \\
 \bottomrule
 \end{tabular}
+\medskip
+\caption{\label{tab:mouse_crossings}{\color{blue}Analogous to our analysis in \tableref{reviewed_crossings}, we compared automatically generated trajectories for two videos with manually verified ones. Unlike the table in the main text, the sample size per video is only one here, which is why the standard deviation is zero in both cases. Results show very high accuracy for both videos, but relatively high numbers of interpolated frames  compared to \tableref{reviewed_crossings}, where only the results for \videoref{vid:15locusts1h} showed more than 8\% interpolation and all others remained below 1\%.}}
 \end{table}
 
 \begin{figure}
