@@ -94,8 +94,8 @@
 \captionsetup*[table]{name={\hspace{-2.5pt}},font={color=eLifeDarkBlue,small},margin=0pt,indention=0cm,justification=justified}
 \renewcommand{\thetable}{Table~\arabic{table}}
 
-%\newcommand{\changemade}[1]{{\color{blue}#1}}
 \newcommand{\changemade}[1]{#1}
+%\renewcommand{\changemade}[1]{{\color{blue}#1}}
 
 \makeatletter\newcommand\newtag[2]{#1\def\@currentlabel{#1\hspace{-2pt}}\label{#2}}\makeatother%
 
@@ -235,7 +235,7 @@ ID & species & common & {\# ind.} & fps (Hz) & duration & size ($\mathrm{px}^2$)
 \medskip 
 
 \caption{\label{tab:videos}A list of the videos used in this paper as part of the evaluation of \TRex{}, along with the species of animals in the videos and their common names, as well as other video-specific properties. Videos are given an incremental ID, to make references more efficient in the following text, which are sorted by the number of individuals in the video. Individual quantities are given accurately, except for the videos with more than 100 where the exact number may be slightly more or less. These videos have been analysed using \TRex{}' dynamic analysis mode that supports unknown quantities of animals.}
-\tabledata{Videos \vidref{vid:video_example_100fish_1min} and \vidref{vid:flies_N59}, as well as \vidref{vid:group_1}-\vidref{vid:group_3}, are available as part of the original \texttt{idtracker} paper (\cite{idtracker}). Many of the videos are part of yet unpublished data: Guppy videos have been recorded by A. Albi, videos with sunbleak (\textit{Leucaspius delineatus}) have been recorded by D. Bath. The termite video has been kindly provided by H. Hugo and the locust video by F. Oberhauser. Due to the size of some of these videos (>150GB per video), they have to be made available upon specific request. Raw versions of these videos (some trimmed), as well as full preprocessed versions, are available as part of the dataset published alongside this paper \cite{walter2020dataset}.}
+\tabledata{\changemade{Videos \vidref{vid:video_example_100fish_1min} and \vidref{vid:flies_N59}, as well as \vidref{vid:group_1}-\vidref{vid:group_3}, are available as part of the original \texttt{idtracker} paper (\cite{idtracker}). Many of the videos are part of yet unpublished data: Guppy videos have been recorded by A. Albi, videos with sunbleak (\textit{Leucaspius delineatus}) have been recorded by D. Bath. The termite video has been kindly provided by H. Hugo and the locust video by F. Oberhauser. Due to the size of some of these videos (>150GB per video), they have to be made available upon specific request. Raw versions of these videos (some trimmed), as well as full preprocessed versions, are available as part of the dataset published alongside this paper \cite{walter2020dataset}.}}
 
 \end{table}
 
@@ -286,8 +286,8 @@ video & {\# ind.} & N \TRex{} & \% similar individuals & $\diameter$ final uniqu
 \medskip
 
 \caption{\label{tab:recognition_acc}Evaluating comparability of the automatic visual identification between \idtracker{} and \TRex{}. Columns show various video properties, as well as the associated uniqueness score (see \autoref{box:uniqueness_score}) and a similarity metric. Similarity (\textit{\% similar individuals}) is calculated based on comparing the positions for each identity exported by both tools, choosing the closest matches overall and counting the ones that are differently assigned per frame. An individual is classified as "wrong" in that frame, if the euclidean distance between the matched solutions from \idtracker{} and \TRex{} exceeds 1\% of the video width. The column "\% similar individuals" shows percentage values, where a value of $99\%$ would indicate that, on average, 1\% of the individuals are assigned differently. To demonstrate how uniqueness corresponds to the quality of results, the last column shows the average uniqueness achieved across trials.}
-\tabledata{This file contains all X and Y positions for each trial and each software combined into one very large table. This data is also available in different formats in \cite{walter2020dataset}.}
-\tabledata{Assignments between identities from multiple solutions, as calculated by a bipartite-graph matching algorithm. For each permutation of trials from \TRex{} and \idtracker{} for the same video, the algorithm sought to match the trajectories of the same physical individuals in both trials with each other by finding the ones with the smallest mean euclidean distance per frame between them. Available at \url{http://dx.doi.org/10.17617/3.4y}, as \protect\path{T2_source_data.zip}.}
+\tabledata{\changemade{This file contains all X and Y positions for each trial and each software combined into one very large table. This data is also available in different formats in \cite{walter2020dataset}.}}
+\tabledata{\changemade{Assignments between identities from multiple solutions, as calculated by a bipartite-graph matching algorithm. For each permutation of trials from \TRex{} and \idtracker{} for the same video, the algorithm sought to match the trajectories of the same physical individuals in both trials with each other by finding the ones with the smallest mean euclidean distance per frame between them. Available at \url{http://dx.doi.org/10.17617/3.4y}, as \protect\path{T2_source_data.zip}.}}
 \end{table}
 
 \subsection{Visual Identification: Accuracy} \label{sec:maintaining_identities}
@@ -323,7 +323,7 @@ $ 99.34 \pm 0.002 $ \\
 \medskip
 
 \caption{\label{tab:reviewed_crossings} Results of the human validation for a subset of videos. Validation was performed by going through all problematic situations (e.g. individuals lost) and correcting mistakes manually, creating a fully corrected dataset for the given videos. This dataset may still have missing frames for some individuals, if they could not be detected in certain frames (as indicated by "of that interpolated"). This was usually a very low percentage of all frames, except for \videoref{vid:15locusts1h}, where individuals tended to rest on top of each other -- and were thus not tracked -- for extended periods of time. This baseline dataset was compared to all other results obtained using the automatic visual identification by \TRex{} ($N=5$) and \idtracker{} ($N=3$) to estimate correctness. We were not able to track videos \vidref{vid:15locusts1h} and \vidref{vid:N05HHS2019-10S-V1} with \idtracker{}, which is why correctness values are not available.}
-\tabledata{A table of positions for each individual of each manually approved and corrected trial.}
+\tabledata{\changemade{A table of positions for each individual of each manually approved and corrected trial.}}
 \end{table}
 
 The trajectories exported by both \idtracker{} and \TRex{} were very similar throughout (see \tableref{recognition_acc}). While occasional disagreements happened, similarity scores were higher than \changemade{98\% in all and higher than 99\% in most cases} (i.e. less than 1\% of individuals have been differently assigned in each frame on average). Most difficulties that \textit{did} occur were, after manual review, attributable to situations where multiple individuals cross over excessively within a short time-span. In each case that has been manually reviewed, identities switched back to the correct individuals -- even after temporary disagreement. We found that both solutions occasionally experienced these same problems, which often occur when individuals repeatedly come in and out of view in quick succession (e.g. overlapping with other individuals). Disagreements were expected for videos with many such situations due to the way both algorithms deal differently with them: \idtracker{} assigns identities only based on the network output. In many cases, individuals continue to partly overlap even while already being tracked, which results in visual artifacts and can lead to unstable predictions by the network and causing \idtracker{'s} approach to fail. Comparing results from both \idtracker{} and \TRex{} to manually reviewed data (see \tableref{reviewed_crossings}) shows that both solutions consistently provide high accuracy results of above 99.5\% for most videos, but that \TRex{} is slightly improved in all cases while also having a better overall frame coverage per individual (99.65\% versus \idtracker{'s} 97.93\%, where 100\% would mean that all individuals are tracked in every frame; not shown). This suggests that the splitting algorithm (see appendix, \nameref{box:splitting-algorithm}) is working to \TRex{}' advantage here.
@@ -359,6 +359,7 @@ The trajectories exported by both \idtracker{} and \TRex{} were very similar thr
 \includegraphics[width=\textwidth]{figures/fig_activations.pdf}
 
 \caption{\label{fig:network_activations}Activation differences for images of randomly selected individuals from four videos, next to a median image of the respective individual -- which hides thin extremities, such as legs in (a) and (c). The captions in (a-d) detail the species per group and number of samples per individual. Colors represent the relative activation differences, with hotter colors suggesting bigger magnitudes, which are computed by performing a forward-pass through the network up to the last convolutional layer (using \href{https://github.com/philipperemy/keract}{keract}). The outputs for each identity are averaged and stretched back to the original image size by cropping and scaling according to the network architecture. Differences shown here are calculated per cluster of pixels corresponding to each filter, comparing average activations for images from the individual's class to activations for images from other classes.}
+\figdata{\changemade{Code, as well as images/weights needed to produce this figure (see README).}}
 \end{figure}
 
 Additionally, while \TRex{} could successfully track individuals in all videos without tags, we were interested to see the effect of tags (in this case QR tags attached to locusts, see \figref{fig:network_activations}a)  %\figref{fig:activate_locusts})
@@ -391,7 +392,7 @@ video & \#ind. & length & max.consec.& TRex memory (GB) & idtracker.ai memory (G
 \medskip 
 
 \caption{\label{tab:memory_table}Both \TRex{} and \idtracker{} analysed the same set of videos, while continuously logging their memory consumption using an external tool. Rows have been sorted by $\mathrm{video\_length} * \mathrm{\#individuals}$, which seems to be a good predictor for the memory consumption of both solutions. \idtracker{} has mixed mean values, which, at low individual densities are similar to \TRex{}' results. Mean values can be misleading here, since more time spent in low-memory states skews results. The maximum, however, is more reliable since it marks the memory that is necessary to run the system. Here, \idtracker{} clocks in at significantly higher values (almost always more than double) than \TRex{}.}
-\tabledata{Data from log files for all trials as a single table, where each row is one sample. The total memory of each sample is calculated as $\mathrm{SWAP} + \mathrm{PRIVATE} + \mathrm{SHARED}$. Each row indicates at which exact time, by which software, and as part of which trial it was taken. }
+\tabledata{\changemade{Data from log files for all trials as a single table, where each row is one sample. The total memory of each sample is calculated as $\mathrm{SWAP} + \mathrm{PRIVATE} + \mathrm{SHARED}$. Each row indicates at which exact time, by which software, and as part of which trial it was taken.}}
 \end{table}
 
 
@@ -400,7 +401,7 @@ video & \#ind. & length & max.consec.& TRex memory (GB) & idtracker.ai memory (G
 \includegraphics[width=0.9\linewidth]{figures/memory_consumption.pdf}
 \caption{The maximum memory by \TRex{} and \idtracker{} when tracking videos from a subset of all videos (the same videos as in \tableref{recognition_acc}). Results are plotted as a function of video length (min) multiplied by the number of individuals. We have to emphasize here that, for the videos in the upper length regions of multiple hours (\vidref{vid:guppy_8_t20_d1_20190512_115801}, \vidref{vid:guppy_8_t46_d1_20191207_102508}), we had to set \idtracker{} to store segmentation information on disk -- as opposed to in RAM. This uses less memory, but is also slower. For the video with flies we tried out both and also settled for on-disk, since otherwise the system ran out of memory. Even then, the curve still accelerates much faster for \idtracker{}, ultimately leading to problems with most computer systems. To minimize the impact that hardware compatibility has on research, we implemented switches limiting memory usage while always trying to maximize performance given the available data. \TRex{} can be used on modern laptops and normal consumer hardware at slightly lower speeds, but without any \textit{fatal} issues.}
 \label{fig:memory_per_video_length}
-\figdata{Each data-point from \figref{fig:memory_per_video_length} as plotted, indexed by video and software used.}
+\figdata{\changemade{Each data-point from \figref{fig:memory_per_video_length} as plotted, indexed by video and software used.}}
 \end{figure}
 
 
@@ -409,7 +410,7 @@ video & \#ind. & length & max.consec.& TRex memory (GB) & idtracker.ai memory (G
 \includegraphics[width=0.9\linewidth]{figures/raw_posture_moments.pdf}
 \caption{Convergence behavior of the network training for three different normalization methods. This shows the maximum achievable validation accuracy after 100 epochs for 100 individuals (\videoref{vid:video_example_100fish_1min}), when sub-sampling the number of examples per individual. Tests were performed using a manually corrected training dataset to generate the images in three different ways, using the same, independent script (see \figref{fig:datasets_comparison}): Using no normalization (blue), using normalization based on image moments (green, similar to \idtracker{}), and using posture information (red, as in \TRex{}). Higher numbers of samples per individual result in higher maximum accuracy overall, but -- unlike the other methods -- posture-normalized runs already reach an accuracy above the 90\% mark for $\geq$75 samples. This property can help significantly in situations with more crossings, when longer global segments are harder to find.}
 \label{fig:maximum_val_acc_per_samples}
-\figdata{Raw data-points as plotted in \figref{fig:maximum_val_acc_per_samples}.}
+\figdata{\changemade{Raw data-points as plotted in \figref{fig:maximum_val_acc_per_samples}.}}
 \end{figure}
 
 As would be expected, distinct patterns can be recognized in the resulting activations after training as soon as physical tags are attached to individuals (as in \figref{fig:network_activations}a). %\figref{fig:activate_locusts}). 
@@ -458,9 +459,9 @@ $ 1493.83 \pm 27.75 $ \\
 \bottomrule
 \end{tabular}
 \medskip 
-%\tabledata{}
+%\tabledata{\changemade{}
 \caption{\label{tab:recognition_timings}Evaluating time-cost for automatic identity correction -- comparing to results from \idtracker{}. Timings consist of preprocessing time in \TGrabs{} plus network training in \TRex{}, which are shown separately as well as combined (\textit{ours (min)}, $N=5$). The time it takes to analyse videos strongly depends on the number of individuals and how many usable samples per individual the initial segment provides. The length of the video factors in as well, as does the stochasticity of the gradient descent (training). \idtracker{} timings ($N=3$) contain the whole tracking and training process from start to finish, using its \texttt{terminal\_mode} (v3). Parameters have been manually adjusted per video and setting, to the best of our abilities, spending at most one hour per configuration. For videos \vidref{vid:guppy_8_t20_d1_20190512_115801} and \vidref{vid:guppy_8_t46_d1_20191207_102508} we had to set \idtracker{} to storing segmentation information on disk (as compared to in RAM) to prevent the program from being terminated for running out of memory.}
-\tabledata{Preprocessed log files (see also \protect\path{notebooks.zip} in \cite{walter2020dataset}) in a table format. The total processing time (s) of each trial is indexed by video and software used -- \TGrabs{} for conversion and \TRex{} and \idtracker{} for visual identification. This data is also used in \tableref{timings}.}
+\tabledata{\changemade{Preprocessed log files (see also \protect\path{notebooks.zip} in \cite{walter2020dataset}) in a table format. The total processing time (s) of each trial is indexed by video and software used -- \TGrabs{} for conversion and \TRex{} and \idtracker{} for visual identification. This data is also used in \tableref{timings}.}}
 \end{table}
 
 \subsection{Visual Identification: Processing Time}
@@ -556,7 +557,7 @@ To obtain the most up-to-date version of \TRex{}, please download it at \href{ht
 % \bottomrule
 % \end{tabular}
 % \medskip 
-% %\tabledata{}
+% %\tabledata{\changemade{}
 % \caption{Do I need this}
 % \end{table}
 
@@ -609,18 +610,19 @@ iii. The reference-point chosen in (ii) marks the start for the midline-algorith
 
 Compared to the tracking itself, posture estimation is a time-consuming process and can be disabled. It is, however, required to estimate -- and subsequently normalize -- an animal's orientation in space (e.g. required later in \nameref{sec:visual_recognition}), or to reconstruct their visual field as described in the following sub-section.
 
-\subsubsection{Reconstructing 2D Visual Fields}
-
-Visual input is an important modality for many species (e.g. fish \citealt{strandburg2013visual}, \citealt{bilotta2001zebrafish} and humans \citealt{colavita1974human}). Due to its importance in widely used model organisms like zebrafish (\emph{Danio rerio}), we decided to include the capability to conduct a 2-dimensional reconstruction of each individual's visual field as part of the software. The requirements for this are successful posture estimation and that individuals are viewed from above, as is usually the case in laboratory studies.
-
-\begin{figure}[h]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/screenshot_visual_field.jpg}
 
     \caption{Visual field estimate of the individual in the center (zoomed in, the individuals are approximately 2-3cm long, \videoref{vid:guppy_8_t36_d15_20191212_085800}). Right (blue) and left (orange) fields of view intersect in the binocular region (pink). Most individuals can be seen directly by the focal individual (1, green), which has a wide field of view of $260^\circ$ per eye. Individual 3 on the top-left is not detected by the focal individual directly and not part of its first-order visual field. However, second-order intersections (visualized by grey lines here) are also saved and accessible through a separate layer in the exported data.}
   \label{fig:occlusion}
-  \videosupp{A clip from \videoref{vid:guppy_8_t36_d15_20191212_085800}, showing \TRex{'} visual-field estimation for Individual 1. \url{https://youtu.be/yEO_3lpZIzU}}
+  \videosupp{\changemade{A clip from \videoref{vid:guppy_8_t36_d15_20191212_085800}, showing \TRex{'} visual-field estimation for Individual 1. \url{https://youtu.be/yEO_3lpZIzU}}}
 \end{figure}
+
+\subsubsection{Reconstructing 2D Visual Fields}
+
+Visual input is an important modality for many species (e.g. fish \citealt{strandburg2013visual}, \citealt{bilotta2001zebrafish} and humans \citealt{colavita1974human}). Due to its importance in widely used model organisms like zebrafish (\emph{Danio rerio}), we decided to include the capability to conduct a 2-dimensional reconstruction of each individual's visual field as part of the software. The requirements for this are successful posture estimation and that individuals are viewed from above, as is usually the case in laboratory studies.
+
 
 The algorithm makes use of the fact that outlines have already been calculated during posture estimation. Eye positions are estimated to be evenly distanced from the "snout" and will be spaced apart depending on the thickness of the body at that point (the distance is based on a ratio, relative to body-size, which can be adjusted by the user). Eye orientation is also adjustable, which influences the size of the stereoscopic part of the visual field. We then use ray-casting to intersect rays from each of the eyes with all other individuals as well as the focal individual itself (self-occlusion). Individuals not detected in the current frame are approximated using the last available posture. Data are organized as a multi-layered 1D-image of fixed size for each frame, with each image prepresenting angles from $-180^{\circ}$ to $180^{\circ}$ for the given frame. Simulating a limited field-of-view would thus be as simple as cropping parts of these images off the left and right sides. The different layers per pixel encode:
 
@@ -1370,17 +1372,17 @@ video & \textbf{{\# ind.}}  & ms / frame & 5\% & mean & 95\% & max & $>$ real-ti
 \bottomrule
 \end{tabular}
 \medskip 
-%\tabledata{}
+%\tabledata{\changemade{}
 \caption{Showing quantiles for frame timings for videos of the \textit{speed dataset} (without posture enabled). Videos \vidref{vid:guppy_8_t36_d15_20191212_085800}, \vidref{vid:guppy_8_t20_d1_20190512_115801} and \vidref{vid:guppy_8_t46_d1_20191207_102508} each contain a short sequence of taking out the fish, causing a lot of big objects and noise in the frame. This leads to relatively high spikes in these segments of the video, resulting in high peak processing timings here. Generally, processing time is influenced by a lot of factors involving not only \TRex{}, but also the operating system as well as other programs. While we did try to control for these, there is no way to make sure. However, having sporadic spikes in the timings per frame does not significantly influence overall processing time, since it can be compensated for by later frames. We can see that videos of all quantities $\leq$ 256 individuals can be processed faster than they could be recorded. Videos that can not be processed faster than real-time are underlaid in gray.}\label{tab:absolute_speeds_no_posture}
-\tabledata{Raw samples for this table and \tableref{matching_stats}.}
+\tabledata{\changemade{Raw samples for this table and \tableref{matching_stats}.}}
 \end{table}
 
 \begin{figure}
 \includegraphics[width=1.0\linewidth]{figures/segment_lengths.pdf}
 \caption{The same set of videos as in \tableref{recognition_timings} pooled together, we evaluate the efficiency of our crossings solver. \textit{Consecutive frame segments} are sequences of frames without gaps, for example due to crossings or visibility issues. We find these \textit{consecutive frame segments} in data exported by \TRex{}, and compare the distribution of segment-lengths to \idtracker{'s} results (as a reference for an algorithm without a way to resolve crossings). In \idtracker{'s} case, we segmented the non-interpolated tracks by missing frames, assuming tracks to be correct in between. The Y-axis shows the percentage of $\sum_{k\in [1,V]}\mathrm{video\_length}_k * \mathrm{\#individuals}_k$ in $V$ videos that one column makes up for -- the overall coverage for \TRex{} was $98\%$, while \idtracker{} was slightly worse with $95.17\%$. Overall, the data distribution suggests that, probably due to it attempting to resolve crossings, \TRex{} seems to produce longer consecutive segments.}
 \label{fig:segment_lengths}
-\figdata{A list of all consecutive frame segments used in \figref{fig:segment_lengths}. In the table, they are indexed by their length, the software they were produced by, the video they originate from, as well as they bin they belong to.}
-\figdata{The raw data-points as plotted in \figref{fig:segment_lengths}.}
+\figdata{\changemade{A list of all consecutive frame segments used in \figref{fig:segment_lengths}. In the table, they are indexed by their length, the software they were produced by, the video they originate from, as well as they bin they belong to.}}
+\figdata{\changemade{The raw data-points as plotted in \figref{fig:segment_lengths}.}}
 \end{figure}
 
 \begin{table}
@@ -1406,14 +1408,14 @@ video & {\# ind.} & length & \multicolumn{2}{c|}{total} & \multicolumn{2}{c|}{ex
 \medskip
 \caption{\label{tab:decisions}A quality assessment of assignment decisions made by the general purpose tracking system without the aid of visual recognition -- comparing results of two accurate tracking algorithms with the assignments made by an approximate method. Here, \textit{decisions} are reassignments of an individual after it has been lost, or the tracker was too "unsure" about an assignment. Decisions can be either correct or wrong, which is determined by comparing to reference data generated using automatic visual recognition: Every segment of frames between decisions is associated with a corresponding "baseline-truth" identity from the reference data. If this association changes after a decision, then that decision is counted as wrong. Analysing a decision may fail if no good match can be found in the reference data (which is not interpolated). Failed decisions are ignored. Comparative values for the Hungarian algorithm (\cite{kuhn1955hungarian}) are always exactly the same as for our tree-based algorithm, and are therefore not listed separately.
 Left-aligned \textit{total}, \textit{excluded} and \textit{wrong} counts in each column are results achieved by an accurate algorithm, numbers to their right are the corresponding results using an approximate method.}
-\tabledata{Raw data of trial runs using the hungarian and tree-based matching algorithms, as well as baseline data from manually or automatically corrected trials used in this table is available for download from \cite{walter2020dataset} (in \protect\path{A4T2_source_data.zip}).}
+\tabledata{\changemade{Raw data of trial runs using the hungarian and tree-based matching algorithms, as well as baseline data from manually or automatically corrected trials used in this table is available for download from \cite{walter2020dataset} (in \protect\path{A4T2_source_data.zip}).}}
 \end{table}
 
 \begin{figure}
 \includegraphics[width=0.9\linewidth]{figures/approx_accurate.pdf}
 \caption{Mean values of processing-times and 5\%/95\% percentiles for video frames of all videos in the \textit{speed dataset} (Table \tableref{videos}), comparing two different matching algorithms. Parameters were kept identical, except for the matching mode, and posture was turned off to eliminate its effects on performance. Our tree-based algorithm is shown in green and the Hungarian method in red. Grey numbers above the graphs show the number of samples within each bin, per method. Differences between the algorithms increase very quickly, proportional to the number of individuals. Especially the Hungarian method quickly becomes very computationally intensive, while our tree-based algorithm shows a much shallower curve. Some frames could not be solved in reasonable time by the tree-based algorithm alone, at which point it falls back to the Hungarian algorithm. Data-points belonging to these frames ($N=79$) have been excluded from the results for both algorithms. One main advantage of the Hungarian method is that, with its bounded worst-case complexity (see \nameref{sec:matching_graph}), no such combinatorical explosions can happen. However, even given this advantage the Hungarian method still leads to significantly lower processing speed overall (see also appendix Table \tableref{timings_apprx}).}
 \label{fig:approx_accurate}
-\figdata{Raw data for producing this figure and \tableref{timings_apprx}. Each sample is represented as a row here, indexed by method (tree, approximate, hungarian), video and the bin (horizontal line in this figure).}
+\figdata{\changemade{Raw data for producing this figure and \tableref{timings_apprx}. Each sample is represented as a row here, indexed by method (tree, approximate, hungarian), video and the bin (horizontal line in this figure).}}
 \end{figure}
 
 \begin{table}[h]
@@ -1446,7 +1448,7 @@ video & \textbf{{\# ind.}}  & fps (Hz) & size ($\mathrm{px}^2$) & tree & approxi
 \bottomrule
 \end{tabular}
 \medskip 
-%\tabledata{}
+%\tabledata{\changemade{}
 \caption{\label{tab:timings_apprx}Comparing computation speeds of the tree-based tracking algorithm with the widely established Hungarian algorithm \cite{kuhn1955hungarian}, as well as an approximate version optimized for large quantities of individuals. Posture estimation has been disabled, focusing purely on the assignment problem in our timing measurements. The tree-based algorithm is programmed to fall back on the Hungarian method whenever the current problem "explodes" computationally -- these frames were excluded. Listed are relevant video metrics on the left and mean computation speeds on the right side for three different algorithms: (1) The tree-based and (2) the approximate algorithm presented in this paper, and (3) the Hungarian algorithm. Speeds listed here are percentages of real-time (the videos' fps), demonstrating usability in closed-loop applications and overall performance. Results show that increasing the number of individuals both increases the time-cost, as well as producing much larger relative standard deviation values. (1) is almost always fast than (3), while becoming slower than (2) with increasing individual numbers. In our implementation, all algorithms produce faster than real-time speeds with 256 or fewer individuals (see also appendix Table \tableref{absolute_speeds_no_posture}), with (1) and (2) even getting close for 512 individuals.}
 \end{table}
 
@@ -1483,9 +1485,9 @@ video & {\# ind.} & length & fps (Hz) & prepare &  tracking  & live & win (\%)  
 \end{tabular}
 
 \medskip 
-%\tabledata{}
+%\tabledata{\changemade{}
 \caption{\label{tab:timings}Comparing the time-cost for tracking and converting videos in two steps with doing both of those tasks at the same time. The columns \textit{prepare} and \textit{tracking} show timings for the tasks when executed separately, while \textit{live} shows the time when both of them are performed at the same time using the live-tracking feature of \TGrabs{}. The column \textit{win} shows the time "won" by combining tracking and preprocessing as the percentage $(\mathrm{prepare}+\mathrm{tracking}-\mathrm{live})/(\mathrm{prepare}+\mathrm{tracking})$. The process is more complicated than simply adding up timings of the tasks. Memory and the interplay of work-loads have a huge effect here. Posture is enabled in all variants.}
-%\tabledata{Same as \tableref{recognition_timings} source-data.}
+%\tabledata{\changemade{Same as \tableref{recognition_timings} source-data.}
 \end{table}
 
 \begin{table}
@@ -1519,9 +1521,9 @@ video & \textbf{{\# ind.}}  & \# nodes visited (5,50,95,100\%) & \# leafs visite
 \bottomrule
 \end{tabular}
 \medskip 
-%\tabledata{}
+%\tabledata{\changemade{}
 \caption{\label{tab:matching_stats} Statistics for running the tree-based matching algorithm with the videos of the speed dataset. We achieve low leaf and node visits across the board -- this is especially interesting in videos with high numbers of individuals. High values for '\# nodes visited' are only impactful if they make up a large portion of the assignments. These are the result of too many choices for assignments -- the weak point of the tree-based algorithm -- and lead to combinatorical "explosions" (the method will take a really long time to finish). If such an event is detected, \TRex{} automatically switches to a more computationally bounded algorithm like the Hungarian method.}
-%\tabledata{Same as \tableref{absolute_speeds_no_posture}.}
+%\tabledata{\changemade{Same as \tableref{absolute_speeds_no_posture}.}
 \end{table}
 
 \begin{appendixbox}
